@@ -1,0 +1,26 @@
+/**
+ * Paleta de colores local para la sección "Proyectos".
+ * No se usan las variables globales (primary/secondary) para mantener
+ * la identidad visual propia de esta sección.
+ */
+.projects-section {
+  /* Fondo */
+  --projects-bg: #0f172a;
+  --projects-bg-overlay: rgba(15, 23, 42, 0.9);
+
+  /* Texto */
+  --projects-text: #f8fafc;
+  --projects-text-muted: rgba(248, 250, 252, 0.6);
+  --projects-text-muted-2: rgba(248, 250, 252, 0.4);
+
+  /* Acento del header (línea, label "Nuestro trabajo", palabra "Proyectos") */
+  --projects-header-accent: #38bdf8;
+  --projects-header-accent-muted: rgba(56, 189, 248, 0.5);
+  --projects-header-accent-soft: rgba(56, 189, 248, 0.85);
+
+  /* Sombra del contenedor de imagen */
+  --projects-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.4);
+
+  /* Tipografía del heading (serif) */
+  --projects-font-heading: "Playfair Display", Georgia, serif;
+}
