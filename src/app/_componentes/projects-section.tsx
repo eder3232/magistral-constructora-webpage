@@ -2,15 +2,38 @@
 
 import { useRef, useEffect } from "react";
 import Image from "next/image";
+import Link from "next/link";
 import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { projectsData, type ProjectData } from "./projects-data";
 import { Button } from "@/components/ui/button";
 import "./projects-section.css";
 
+/** Divisor centrado: raya · punto · raya */
+function ProjectsDivider() {
+  return (
+    <div
+      className="flex w-full items-center justify-center gap-3 py-8"
+      aria-hidden
+    >
+      <span className="h-px w-16 max-w-[80px] flex-1 bg-border/80" />
+      <span className="size-1.5 shrink-0 rounded-full bg-secondary" />
+      <span className="h-px w-16 max-w-[80px] flex-1 bg-border/80" />
+    </div>
+  );
+}
+
 gsap.registerPlugin(ScrollTrigger);
 
-function ProjectBlock({ project, index }: { project: ProjectData; index: number }) {
+function ProjectBlock({
+  project,
+  index,
+  reverse = false,
+}: {
+  project: ProjectData;
+  index: number;
+  reverse?: boolean;
+}) {
   const blockRef = useRef<HTMLElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
   const imageWrapRef = useRef<HTMLDivElement>(null);
@@ -58,7 +81,7 @@ function ProjectBlock({ project, index }: { project: ProjectData; index: number 
               start: "top 75%",
               toggleActions: "play none none none",
             },
-          }
+          },
         );
       });
 
@@ -76,7 +99,7 @@ function ProjectBlock({ project, index }: { project: ProjectData; index: number 
               start: "top 75%",
               toggleActions: "play none none none",
             },
-          }
+          },
         );
       }
 
@@ -95,7 +118,7 @@ function ProjectBlock({ project, index }: { project: ProjectData; index: number 
               start: "top 70%",
               toggleActions: "play none none none",
             },
-          }
+          },
         );
       }
     }, blockRef);
@@ -111,8 +134,11 @@ function ProjectBlock({ project, index }: { project: ProjectData; index: number 
     >
       <div className="relative z-10 w-full max-w-7xl mx-auto px-6 md:px-12 py-16 md:py-24">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-          {/* Left: content */}
-          <div ref={contentRef} className="order-2 lg:order-1">
+          {/* Content: izquierda (normal) o derecha (reverse) en desktop */}
+          <div
+            ref={contentRef}
+            className={reverse ? "order-2 lg:order-2" : "order-2 lg:order-1"}
+          >
             <span
               ref={subtitleRef}
               className="uppercase text-xs tracking-[0.25em] block"
@@ -123,7 +149,10 @@ function ProjectBlock({ project, index }: { project: ProjectData; index: number 
             <h2
               ref={titleRef}
               className="text-4xl md:text-6xl lg:text-7xl font-bold mt-2 mb-4 lg:mb-6 leading-tight"
-              style={{ color: "var(--projects-text)", fontFamily: "var(--projects-font-heading)" }}
+              style={{
+                color: "var(--projects-text)",
+                fontFamily: "var(--projects-font-heading)",
+              }}
             >
               {project.name}
             </h2>
@@ -141,7 +170,10 @@ function ProjectBlock({ project, index }: { project: ProjectData; index: number 
                 <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
                 <circle cx="12" cy="10" r="3" />
               </svg>
-              <span className="text-sm" style={{ color: "var(--projects-text-muted)" }}>
+              <span
+                className="text-sm"
+                style={{ color: "var(--projects-text-muted)" }}
+              >
                 {project.location}
               </span>
             </div>
@@ -157,12 +189,21 @@ function ProjectBlock({ project, index }: { project: ProjectData; index: number 
             >
               {project.description}
             </p>
-            <div ref={statsRef} className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-8">
+            <div
+              ref={statsRef}
+              className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-8"
+            >
               {project.stats.map((stat) => (
-                <div key={stat.label} className="flex flex-col items-center gap-2 justify-start">
+                <div
+                  key={stat.label}
+                  className="flex flex-col items-center gap-2 justify-start"
+                >
                   <span
                     className="text-3xl md:text-4xl font-bold"
-                    style={{ color: "var(--projects-text)", fontFamily: "var(--projects-font-heading)" }}
+                    style={{
+                      color: "var(--projects-text)",
+                      fontFamily: "var(--projects-font-heading)",
+                    }}
                   >
                     {stat.value}
                   </span>
@@ -199,6 +240,7 @@ function ProjectBlock({ project, index }: { project: ProjectData; index: number 
             </div>
             <div ref={ctaRef}>
               <Button
+                asChild
                 variant="outline"
                 className="uppercase tracking-widest text-sm rounded border-2 hover:bg-white hover:text-slate-900 transition-colors"
                 style={{
@@ -206,13 +248,20 @@ function ProjectBlock({ project, index }: { project: ProjectData; index: number 
                   // color: project.accent,
                 }}
               >
-                Conocer Proyecto →
+                <Link href={`/proyectos/${project.slug}`}>Conocer Proyecto →</Link>
               </Button>
             </div>
           </div>
 
-          {/* Right: image */}
-          <div ref={imageWrapRef} className="order-1 lg:order-2 relative">
+          {/* Image: derecha (normal) o izquierda (reverse) en desktop */}
+          <div
+            ref={imageWrapRef}
+            className={
+              reverse
+                ? "order-1 lg:order-1 relative"
+                : "order-1 lg:order-2 relative"
+            }
+          >
             <div
               ref={statusRef}
               className="absolute top-4 right-4 z-10 flex items-center gap-2 rounded-full px-4 py-2 text-xs font-medium tracking-wide"
@@ -271,33 +320,47 @@ export function ProjectsSection() {
             height: 60,
             duration: 1,
             ease: "power2.out",
-            scrollTrigger: { trigger: headingRef.current, start: "top 80%", toggleActions: "play none none none" },
-          }
+            scrollTrigger: {
+              trigger: headingRef.current,
+              start: "top 80%",
+              toggleActions: "play none none none",
+            },
+          },
         );
       }
-      [labelRef, titleRef, spanRef, descRef, indicatorsRef].forEach((ref, i) => {
-        const el = ref.current;
-        if (!el || !headingRef.current) return;
-        gsap.fromTo(
-          el,
-          { opacity: 0, y: 24 },
-          {
-            opacity: 1,
-            y: 0,
-            duration: 0.8,
-            delay: 0.1 + i * 0.08,
-            ease: "power3.out",
-            scrollTrigger: { trigger: headingRef.current, start: "top 80%", toggleActions: "play none none none" },
-          }
-        );
-      });
+      [labelRef, titleRef, spanRef, descRef, indicatorsRef].forEach(
+        (ref, i) => {
+          const el = ref.current;
+          if (!el || !headingRef.current) return;
+          gsap.fromTo(
+            el,
+            { opacity: 0, y: 24 },
+            {
+              opacity: 1,
+              y: 0,
+              duration: 0.8,
+              delay: 0.1 + i * 0.08,
+              ease: "power3.out",
+              scrollTrigger: {
+                trigger: headingRef.current,
+                start: "top 80%",
+                toggleActions: "play none none none",
+              },
+            },
+          );
+        },
+      );
     }, sectionRef);
 
     return () => ctx.revert();
   }, []);
 
   return (
-    <div ref={sectionRef} className="projects-section" style={{ background: "var(--projects-bg)" }}>
+    <div
+      ref={sectionRef}
+      className="projects-section"
+      style={{ background: "var(--projects-bg)" }}
+    >
       <link
         href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;600&display=swap"
         rel="stylesheet"
@@ -312,7 +375,11 @@ export function ProjectsSection() {
         <div
           ref={lineRef}
           className="w-px overflow-hidden"
-          style={{ background: "linear-gradient(to bottom, transparent, var(--projects-header-accent-muted))", marginBottom: 32 }}
+          style={{
+            background:
+              "linear-gradient(to bottom, transparent, var(--projects-header-accent-muted))",
+            marginBottom: 32,
+          }}
         />
         <span
           ref={labelRef}
@@ -324,11 +391,17 @@ export function ProjectsSection() {
         <h1
           ref={titleRef}
           className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight"
-          style={{ color: "var(--projects-text)", fontFamily: "var(--projects-font-heading)" }}
+          style={{
+            color: "var(--projects-text)",
+            fontFamily: "var(--projects-font-heading)",
+          }}
         >
           Nuestros
           <br />
-          <span ref={spanRef} style={{ color: "var(--projects-header-accent)" }}>
+          <span
+            ref={spanRef}
+            style={{ color: "var(--projects-header-accent)" }}
+          >
             Proyectos
           </span>
         </h1>
@@ -337,7 +410,8 @@ export function ProjectsSection() {
           className="max-w-md text-base leading-relaxed"
           style={{ color: "var(--projects-text-muted)" }}
         >
-          Edificios diseñados con pasión, construidos con excelencia. Cada proyecto es una promesa de calidad de vida en Arequipa.
+          Edificios diseñados con pasión, construidos con excelencia. Cada
+          proyecto es una promesa de calidad de vida en Arequipa.
         </p>
         <div
           ref={indicatorsRef}
@@ -349,7 +423,10 @@ export function ProjectsSection() {
                 className="w-8 h-0.5 rounded-full"
                 style={{ background: p.accent }}
               />
-              <span className="text-xs tracking-widest" style={{ color: "var(--projects-text-muted-2)" }}>
+              <span
+                className="text-xs tracking-widest"
+                style={{ color: "var(--projects-text-muted-2)" }}
+              >
                 {p.name}
               </span>
             </div>
@@ -357,8 +434,17 @@ export function ProjectsSection() {
         </div>
       </div>
 
+      {/* <ProjectsDivider /> */}
+
       {projectsData.map((project, index) => (
-        <ProjectBlock key={project.id} project={project} index={index} />
+        <div key={project.id}>
+          <ProjectsDivider />
+          <ProjectBlock
+            project={project}
+            index={index}
+            reverse={index % 2 === 1}
+          />
+        </div>
       ))}
     </div>
   );

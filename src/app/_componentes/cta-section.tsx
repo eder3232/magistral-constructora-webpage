@@ -6,8 +6,7 @@ import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-
-const COMPANY_PHONE = "+56 9 1234 5678"; // Número de la empresa - actualizar según corresponda
+import { SITE_CONTACT } from "@/lib/site-config";
 
 export function CtaSection() {
   const [nombre, setNombre] = useState("");
@@ -21,12 +20,25 @@ export function CtaSection() {
       return;
     }
     setEnviando(true);
-    // Aquí podrías enviar a una API o servicio (ej. Formspree, Resend, etc.)
-    await new Promise((r) => setTimeout(r, 600));
-    toast.success("¡Mensaje recibido! Te contactaremos pronto.");
-    setNombre("");
-    setTelefono("");
-    setEnviando(false);
+    try {
+      const res = await fetch("/api/leads", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ nombre: nombre.trim(), telefono: telefono.trim() }),
+      });
+      const data = (await res.json()) as { success: boolean; message?: string };
+      if (!res.ok) {
+        toast.error(data.message ?? "Error al enviar. Intenta de nuevo.");
+        return;
+      }
+      toast.success("¡Mensaje recibido! Te contactaremos pronto.");
+      setNombre("");
+      setTelefono("");
+    } catch {
+      toast.error("Error de conexión. Intenta de nuevo.");
+    } finally {
+      setEnviando(false);
+    }
   };
 
   return (
@@ -57,10 +69,10 @@ export function CtaSection() {
                 Llámanos ahora
               </p>
               <a
-                href={`tel:${COMPANY_PHONE.replace(/\s/g, "")}`}
+                href={SITE_CONTACT.telefonoHref}
                 className="mt-2 text-2xl font-semibold text-primary-foreground transition hover:text-secondary focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-secondary focus-visible:ring-offset-2 focus-visible:ring-offset-primary"
               >
-                {COMPANY_PHONE}
+                {SITE_CONTACT.telefonoDisplay}
               </a>
             </div>
 
@@ -91,7 +103,7 @@ export function CtaSection() {
                   <Input
                     id="cta-telefono"
                     type="tel"
-                    placeholder="+56 9 0000 0000"
+                    placeholder="+51 9XX XXX XXX"
                     value={telefono}
                     onChange={(e) => setTelefono(e.target.value)}
                     required

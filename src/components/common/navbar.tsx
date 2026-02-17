@@ -11,6 +11,7 @@ import {
   SheetTitle,
   SheetTrigger,
 } from "@/components/ui/sheet";
+import { ScrollProgress } from "@/components/ui/scroll-progress";
 import { Menu } from "lucide-react";
 
 const navLinks = [
@@ -31,9 +32,12 @@ export function Navbar() {
   return (
     <header
       className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-        scrolled ? "bg-slate-900/95 backdrop-blur-md shadow-lg" : "bg-transparent"
+        scrolled
+          ? "bg-primary/95 backdrop-blur-md shadow-lg"
+          : "bg-background/95 backdrop-blur-sm border-b border-border/50"
       }`}
     >
+      <ScrollProgress />
       <nav className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16 md:h-20">
           {/* Logo + nombre */}
@@ -42,7 +46,11 @@ export function Navbar() {
             className="flex items-center gap-3 group"
             aria-label="Magistral Constructora - Inicio"
           >
-            <div className="relative w-10 h-10 md:w-11 md:h-11 flex-shrink-0">
+            <div
+              className={`relative w-10 h-10 md:w-11 md:h-11 flex-shrink-0 rounded-lg transition-colors duration-300 ${
+                scrolled ? "" : "bg-primary"
+              }`}
+            >
               <Image
                 src="/logos/logo_sin_fondo.svg"
                 alt=""
@@ -53,7 +61,7 @@ export function Navbar() {
             </div>
             <span
               className={`font-bold text-lg md:text-xl tracking-tight transition-colors duration-300 ${
-                scrolled ? "text-white" : "text-white drop-shadow-md"
+                scrolled ? "text-primary-foreground" : "text-foreground"
               }`}
             >
               Magistral Constructora
@@ -67,7 +75,9 @@ export function Navbar() {
                 key={link.href}
                 href={link.href}
                 className={`text-sm font-medium transition-colors duration-200 hover:opacity-90 ${
-                  scrolled ? "text-slate-200 hover:text-white" : "text-white/90 hover:text-white drop-shadow-sm"
+                  scrolled
+                    ? "text-primary-foreground/90 hover:text-primary-foreground"
+                    : "text-foreground/90 hover:text-foreground"
                 }`}
               >
                 {link.label}
@@ -89,7 +99,11 @@ export function Navbar() {
                 <Button
                   variant="ghost"
                   size="icon"
-                  className={`rounded-lg ${scrolled ? "text-white hover:bg-white/10" : "text-white hover:bg-white/10 drop-shadow-sm"}`}
+                  className={`rounded-lg ${
+                    scrolled
+                      ? "text-primary-foreground hover:bg-primary-foreground/10"
+                      : "text-foreground hover:bg-muted"
+                  }`}
                   aria-label="Abrir menú"
                 >
                   <Menu className="h-6 w-6" />

@@ -1,36 +1,23 @@
 import Image from "next/image";
 import Link from "next/link";
-import { Facebook, Instagram, Linkedin } from "lucide-react";
+import { SocialIcon } from "react-social-icons";
+import { SITE_CONTACT, SITE_SOCIAL } from "@/lib/site-config";
 
-const ENLACES_PROYECTO = [
-  { href: "#el-proyecto", label: "El Edificio" },
-  { href: "#caracteristicas", label: "Características" },
-  { href: "#avance-de-obra", label: "Avance de Obra" },
-  { href: "#ubicacion", label: "Ubicación" },
+const ENLACES_NAVEGACION = [
+  { href: "/nosotros", label: "Nosotros" },
+  { href: "/proyectos/magistral-deluxe", label: "Magistral" },
+  { href: "/proyectos/residencial-bustamante", label: "Bustamante 702" },
 ] as const;
 
 const ENLACES_LEGALES = [
-  { href: "/libro-reclamaciones", label: "Libro de reclamaciones" },
+  { href: "/libro-de-reclamaciones", label: "Libro de reclamaciones" },
   { href: "/terminos-y-condiciones", label: "Términos y condiciones" },
-] as const;
-
-const CONTACTO = {
-  direccion: "Dirección de la empresa",
-  telefono: "+51 999 999 999",
-  telefonoHref: "tel:+51999999999",
-  email: "contacto@magistralconstructora.com",
-};
-
-const REDES_SOCIALES = [
-  { url: "https://facebook.com", label: "Facebook", Icon: Facebook },
-  { url: "https://instagram.com", label: "Instagram", Icon: Instagram },
-  { url: "https://linkedin.com", label: "LinkedIn", Icon: Linkedin },
 ] as const;
 
 export function Footer() {
   return (
     <footer
-      className="bg-primary px-4 py-10 md:px-8 md:py-12 lg:px-16 lg:py-14"
+      className="border-t border-primary-foreground/10 bg-primary px-4 py-10 md:px-8 md:py-12 lg:px-16 lg:py-14"
       aria-label="Pie de página"
     >
       <div className="mx-auto max-w-6xl">
@@ -55,18 +42,18 @@ export function Footer() {
               Magistral
             </h3>
             <p className="mt-3 text-sm leading-relaxed text-primary-foreground/80">
-              Una constructora comprometida con crear hogares de calidad donde las
-              familias puedan crecer juntas.
+              Una constructora comprometida con crear hogares de calidad donde
+              las familias puedan crecer juntas.
             </p>
           </div>
 
-          {/* El Proyecto */}
+          {/* Navegación */}
           <div>
             <h3 className="text-sm font-semibold uppercase tracking-wide text-primary-foreground/90">
-              El Proyecto
+              Navegación
             </h3>
             <ul className="mt-3 space-y-2.5">
-              {ENLACES_PROYECTO.map((link) => (
+              {ENLACES_NAVEGACION.map((link) => (
                 <li key={link.href}>
                   <Link
                     href={link.href}
@@ -85,21 +72,21 @@ export function Footer() {
               Contacto
             </h3>
             <address className="mt-3 not-italic text-sm text-primary-foreground/80">
-              <p className="leading-relaxed">{CONTACTO.direccion}</p>
+              <p className="leading-relaxed">{SITE_CONTACT.direccion}</p>
               <p className="mt-2">
                 <a
-                  href={CONTACTO.telefonoHref}
+                  href={SITE_CONTACT.telefonoHref}
                   className="transition-colors hover:text-primary-foreground"
                 >
-                  {CONTACTO.telefono}
+                  {SITE_CONTACT.telefonoDisplay}
                 </a>
               </p>
               <p className="mt-2">
                 <a
-                  href={`mailto:${CONTACTO.email}`}
+                  href={`mailto:${SITE_CONTACT.emailToShowInThePage}`}
                   className="transition-colors hover:text-primary-foreground"
                 >
-                  {CONTACTO.email}
+                  {SITE_CONTACT.emailToShowInThePage}
                 </a>
               </p>
             </address>
@@ -132,17 +119,18 @@ export function Footer() {
               Síguenos
             </span>
             <ul className="flex items-center gap-3" aria-label="Redes sociales">
-              {REDES_SOCIALES.map(({ url, label, Icon }) => (
+              {SITE_SOCIAL.map(({ url, label }) => (
                 <li key={url}>
-                  <a
-                    href={url}
+                  <SocialIcon
+                    url={url}
+                    label={label}
                     target="_blank"
                     rel="noopener noreferrer"
+                    bgColor="transparent"
+                    fgColor="currentColor"
+                    style={{ width: 36, height: 36 }}
                     className="text-primary-foreground/80 transition-colors hover:text-primary-foreground"
-                    aria-label={label}
-                  >
-                    <Icon className="h-9 w-9" />
-                  </a>
+                  />
                 </li>
               ))}
             </ul>

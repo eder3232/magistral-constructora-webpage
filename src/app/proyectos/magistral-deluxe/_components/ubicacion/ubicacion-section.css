@@ -1,0 +1,23 @@
+/**
+ * Colores adicionales solo para la sección Ubicación (Magistral Deluxe).
+ * El resto de colores se toman de globals.css (--primary, --secondary, --muted, --border, etc.).
+ */
+
+/* Categorías de POI: alineadas al theme */
+.ubicacion-section {
+  --ubicacion-category-comercial: var(--secondary);
+  --ubicacion-category-servicios: var(--chart-4);
+  --ubicacion-category-educacion: var(--primary);
+  --ubicacion-category-salud: var(--destructive);
+}
+
+/* Glow del marcador del proyecto en el mapa (secondary = #ff6a39) */
+@keyframes ubicacion-glow {
+  0%,
+  100% {
+    box-shadow: 0 0 18px rgba(255, 106, 57, 0.35);
+  }
+  50% {
+    box-shadow: 0 0 28px rgba(255, 106, 57, 0.5);
+  }
+}

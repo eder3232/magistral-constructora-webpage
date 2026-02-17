@@ -5,6 +5,7 @@ export interface ProjectStat {
 
 export interface ProjectData {
   id: string;
+  slug: string;
   name: string;
   subtitle: string;
   location: string;
@@ -20,6 +21,7 @@ export interface ProjectData {
 export const projectsData: ProjectData[] = [
   {
     id: "magistral",
+    slug: "magistral-deluxe",
     name: "MAGISTRAL",
     subtitle: "Edificio Multifamiliar",
     location: "Calle Los Arces N°220 A, Cayma",
@@ -39,6 +41,7 @@ export const projectsData: ProjectData[] = [
   },
   {
     id: "bustamante",
+    slug: "residencial-bustamante",
     name: "BUSTAMANTE 702",
     subtitle: "Edificio Multifamiliar",
     location: "Calle Bustamante 702, José Luis Bustamante y Rivero",
