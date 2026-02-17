@@ -9,11 +9,14 @@ import { projectsData, type ProjectData } from "./projects-data";
 import { Button } from "@/components/ui/button";
 import "./projects-section.css";
 
-/** Divisor centrado: raya · punto · raya */
-function ProjectsDivider() {
+/** Divisor centrado: raya · punto · raya. Fondo según el bloque que sigue (dark = primary, light = blanco). */
+function ProjectsDivider({ nextBlockDark }: { nextBlockDark: boolean }) {
   return (
     <div
       className="flex w-full items-center justify-center gap-3 py-8"
+      style={{
+        background: nextBlockDark ? "var(--primary)" : "var(--background)",
+      }}
       aria-hidden
     >
       <span className="h-px w-16 max-w-[80px] flex-1 bg-border/80" />
@@ -29,10 +32,12 @@ function ProjectBlock({
   project,
   index,
   reverse = false,
+  dark = true,
 }: {
   project: ProjectData;
   index: number;
   reverse?: boolean;
+  dark?: boolean;
 }) {
   const blockRef = useRef<HTMLElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
@@ -126,11 +131,23 @@ function ProjectBlock({
     return () => ctx.revert();
   }, [project.id]);
 
+  const blockBg = dark ? "var(--primary)" : "var(--background)";
+  const textColor = dark ? "var(--primary-foreground)" : "var(--foreground)";
+  const mutedColor = dark
+    ? "rgba(255, 255, 255, 0.9)"
+    : "var(--muted-foreground)";
+  const mutedColor2 = dark
+    ? "rgba(255, 255, 255, 0.85)"
+    : "var(--muted-foreground)";
+  const badgeOverlay = dark
+    ? "var(--projects-bg-overlay)"
+    : "var(--projects-bg-overlay-light)";
+
   return (
     <section
       ref={blockRef}
       className="relative w-full min-h-screen flex items-center overflow-hidden"
-      style={{ background: "var(--projects-bg)" }}
+      style={{ background: blockBg }}
     >
       <div className="relative z-10 w-full max-w-7xl mx-auto px-6 md:px-12 py-16 md:py-24">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
@@ -150,7 +167,7 @@ function ProjectBlock({
               ref={titleRef}
               className="text-4xl md:text-6xl lg:text-7xl font-bold mt-2 mb-4 lg:mb-6 leading-tight"
               style={{
-                color: "var(--projects-text)",
+                color: textColor,
                 fontFamily: "var(--projects-font-heading)",
               }}
             >
@@ -170,10 +187,7 @@ function ProjectBlock({
                 <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" />
                 <circle cx="12" cy="10" r="3" />
               </svg>
-              <span
-                className="text-sm"
-                style={{ color: "var(--projects-text-muted)" }}
-              >
+              <span className="text-sm" style={{ color: mutedColor }}>
                 {project.location}
               </span>
             </div>
@@ -185,7 +199,7 @@ function ProjectBlock({
             <p
               ref={descRef}
               className="text-base max-w-lg leading-relaxed mb-8"
-              style={{ color: "var(--projects-text-muted)" }}
+              style={{ color: mutedColor }}
             >
               {project.description}
             </p>
@@ -201,7 +215,7 @@ function ProjectBlock({
                   <span
                     className="text-3xl md:text-4xl font-bold"
                     style={{
-                      color: "var(--projects-text)",
+                      color: textColor,
                       fontFamily: "var(--projects-font-heading)",
                     }}
                   >
@@ -209,7 +223,7 @@ function ProjectBlock({
                   </span>
                   <span
                     className="text-xs uppercase tracking-widest mt-1"
-                    style={{ color: "var(--projects-text-muted)" }}
+                    style={{ color: mutedColor }}
                   >
                     {stat.label}
                   </span>
@@ -219,7 +233,7 @@ function ProjectBlock({
             <div ref={featuresRef} className="mb-8">
               <span
                 className="uppercase text-[10px] tracking-widest block mb-3"
-                style={{ color: "var(--projects-text-muted-2)" }}
+                style={{ color: mutedColor2 }}
               >
                 Amenidades
               </span>
@@ -242,11 +256,16 @@ function ProjectBlock({
               <Button
                 asChild
                 variant="outline"
-                className="uppercase tracking-widest text-sm rounded border-2 hover:bg-white hover:text-slate-900 transition-colors"
-                style={{
-                  borderColor: project.accent,
-                  // color: project.accent,
-                }}
+                className={
+                  dark
+                    ? "uppercase tracking-widest text-sm rounded border-2 hover:bg-white hover:text-slate-900 transition-colors"
+                    : "uppercase tracking-widest text-sm rounded border-2 border-primary text-primary hover:bg-primary hover:text-primary-foreground transition-colors"
+                }
+                style={
+                  dark
+                    ? { borderColor: project.accent }
+                    : { borderColor: "var(--primary)" }
+                }
               >
                 <Link href={`/proyectos/${project.slug}`}>Conocer Proyecto →</Link>
               </Button>
@@ -266,7 +285,7 @@ function ProjectBlock({
               ref={statusRef}
               className="absolute top-4 right-4 z-10 flex items-center gap-2 rounded-full px-4 py-2 text-xs font-medium tracking-wide"
               style={{
-                background: "var(--projects-bg-overlay)",
+                background: badgeOverlay,
                 border: `1px solid ${project.statusColor}55`,
                 color: project.statusColor,
               }}
@@ -356,59 +375,46 @@ export function ProjectsSection() {
   }, []);
 
   return (
-    <div
-      ref={sectionRef}
-      className="projects-section"
-      style={{ background: "var(--projects-bg)" }}
-    >
+    <div ref={sectionRef} className="projects-section">
       <link
         href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;600&display=swap"
         rel="stylesheet"
       />
 
-      {/* Section header */}
+      {/* Section header: fondo primary, texto primary-foreground, acento secondary (globals) */}
       <div
         ref={headingRef}
-        className="min-h-[50vh] flex flex-col items-center justify-center text-center px-6 relative"
-        style={{ background: "var(--projects-bg)" }}
+        className="min-h-[50vh] flex flex-col items-center justify-center text-center px-6 relative bg-primary"
       >
         <div
           ref={lineRef}
           className="w-px overflow-hidden"
           style={{
             background:
-              "linear-gradient(to bottom, transparent, var(--projects-header-accent-muted))",
+              "linear-gradient(to bottom, transparent, rgba(255, 106, 57, 0.5))",
             marginBottom: 32,
           }}
         />
         <span
           ref={labelRef}
-          className="uppercase text-[11px] tracking-[0.35em] mb-6"
-          style={{ color: "var(--projects-header-accent-soft)" }}
+          className="uppercase text-[11px] tracking-[0.35em] mb-6 text-primary-foreground/90"
         >
           Nuestro trabajo
         </span>
         <h1
           ref={titleRef}
-          className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight"
-          style={{
-            color: "var(--projects-text)",
-            fontFamily: "var(--projects-font-heading)",
-          }}
+          className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight text-primary-foreground"
+          style={{ fontFamily: "var(--projects-font-heading)" }}
         >
           Nuestros
           <br />
-          <span
-            ref={spanRef}
-            style={{ color: "var(--projects-header-accent)" }}
-          >
+          <span ref={spanRef} className="text-secondary">
             Proyectos
           </span>
         </h1>
         <p
           ref={descRef}
-          className="max-w-md text-base leading-relaxed"
-          style={{ color: "var(--projects-text-muted)" }}
+          className="max-w-md text-base leading-relaxed text-primary-foreground/90"
         >
           Edificios diseñados con pasión, construidos con excelencia. Cada
           proyecto es una promesa de calidad de vida en Arequipa.
@@ -423,10 +429,7 @@ export function ProjectsSection() {
                 className="w-8 h-0.5 rounded-full"
                 style={{ background: p.accent }}
               />
-              <span
-                className="text-xs tracking-widest"
-                style={{ color: "var(--projects-text-muted-2)" }}
-              >
+              <span className="text-xs tracking-widest text-primary-foreground/85">
                 {p.name}
               </span>
             </div>
@@ -434,15 +437,14 @@ export function ProjectsSection() {
         </div>
       </div>
 
-      {/* <ProjectsDivider /> */}
-
       {projectsData.map((project, index) => (
         <div key={project.id}>
-          <ProjectsDivider />
+          <ProjectsDivider nextBlockDark={index % 2 === 1} />
           <ProjectBlock
             project={project}
             index={index}
             reverse={index % 2 === 1}
+            dark={index % 2 === 1}
           />
         </div>
       ))}

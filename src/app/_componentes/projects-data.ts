@@ -37,7 +37,7 @@ export const projectsData: ProjectData[] = [
     ],
     features: ["Sky Bar", "Coworking", "SUM", "Área de Parrilla", "Techos Verdes", "Monta-vehículos"],
     image: "/home/projects/magistral_tiny.png",
-    accent: "#38bdf8",
+    accent: "#5C3500",
   },
   {
     id: "bustamante",
@@ -57,6 +57,6 @@ export const projectsData: ProjectData[] = [
     ],
     features: ["SUM", "Área de Parrilla", "Ascensor", "Jardín Interior", "Terraza", "Bicicletero"],
     image: "/home/projects/bustamante_tiny.png",
-    accent: "#c084fc",
+    accent: "#FFE29E",
   },
 ];
