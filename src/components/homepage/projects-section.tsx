@@ -159,7 +159,7 @@ function ProjectBlock({ project, index }: { project: ProjectData; index: number 
             </p>
             <div ref={statsRef} className="grid grid-cols-2 md:grid-cols-4 gap-6 mb-8">
               {project.stats.map((stat) => (
-                <div key={stat.label} className="flex flex-col items-center">
+                <div key={stat.label} className="flex flex-col items-center gap-2 justify-start">
                   <span
                     className="text-3xl md:text-4xl font-bold"
                     style={{ color: "var(--projects-text)", fontFamily: "var(--projects-font-heading)" }}
@@ -203,7 +203,7 @@ function ProjectBlock({ project, index }: { project: ProjectData; index: number 
                 className="uppercase tracking-widest text-sm rounded border-2 hover:bg-white hover:text-slate-900 transition-colors"
                 style={{
                   borderColor: project.accent,
-                  color: project.accent,
+                  // color: project.accent,
                 }}
               >
                 Conocer Proyecto →

@@ -111,6 +111,12 @@ export function Hero() {
         >
           <Button
             size="lg"
+            onClick={() => {
+              const contactoSection = document.getElementById("contacto");
+              if (contactoSection) {
+                contactoSection.scrollIntoView({ behavior: "smooth", block: "start" });
+              }
+            }}
             className="bg-secondary text-secondary-foreground hover:bg-secondary/80 font-semibold px-8 py-3 rounded-lg transition-colors"
           >
             Contáctanos
