@@ -25,13 +25,13 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" className="h-full">
-      <body className={`${montserrat.variable} antialiased flex flex-col min-h-screen`}>
+      <body
+        className={`${montserrat.variable} antialiased flex flex-col min-h-screen`}
+      >
         <LenisProvider>
           <TooltipProvider>
             <Navbar />
-            <main className="flex-1 pt-16 md:pt-20">
-              {children}
-            </main>
+            <main className="flex-1 pt-16 md:pt-20">{children}</main>
             <Footer />
             <Toaster />
           </TooltipProvider>

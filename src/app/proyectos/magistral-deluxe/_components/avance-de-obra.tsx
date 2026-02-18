@@ -1,12 +1,7 @@
 "use client";
 
-import { useEffect, useRef } from "react";
-import gsap from "gsap";
-import { ScrollTrigger } from "gsap/ScrollTrigger";
+import { useRef } from "react";
 import { Check, Circle, Loader2 } from "lucide-react";
-import { cn } from "@/lib/utils";
-
-gsap.registerPlugin(ScrollTrigger);
 
 const HITOS = [
   {
@@ -38,53 +33,6 @@ const HITOS = [
 
 export function AvanceDeObra() {
   const sectionRef = useRef<HTMLElement>(null);
-  const lineRef = useRef<HTMLDivElement>(null);
-  const hitosRef = useRef<(HTMLDivElement | null)[]>([]);
-
-  useEffect(() => {
-    const section = sectionRef.current;
-    const line = lineRef.current;
-    if (!section || !line) return;
-
-    const ctx = gsap.context(() => {
-      gsap.fromTo(
-        line,
-        { scaleY: 0 },
-        {
-          scaleY: 1,
-          ease: "none",
-          transformOrigin: "top",
-          scrollTrigger: {
-            trigger: section,
-            start: "top 70%",
-            end: "bottom 30%",
-            scrub: true,
-          },
-        },
-      );
-
-      hitosRef.current.forEach((el, i) => {
-        if (!el) return;
-        gsap.fromTo(
-          el,
-          { opacity: 0, y: 16 },
-          {
-            opacity: 1,
-            y: 0,
-            duration: 0.5,
-            delay: 0.1 * i,
-            scrollTrigger: {
-              trigger: el,
-              start: "top 90%",
-              toggleActions: "play none none none",
-            },
-          },
-        );
-      });
-    }, section);
-
-    return () => ctx.revert();
-  }, []);
 
   return (
     <section
@@ -120,21 +68,12 @@ export function AvanceDeObra() {
           {/* Timeline */}
           <div className="order-2 relative lg:order-2">
             <div className="relative flex flex-col">
-              {/* Línea vertical que se dibuja al scroll */}
-              <div className="absolute left-[19px] top-0 h-full w-0.5 bg-muted-foreground/30 md:left-6">
-                <div
-                  ref={lineRef}
-                  className="h-full w-full origin-top bg-secondary"
-                  style={{ transform: "scaleY(0)" }}
-                />
-              </div>
+              {/* Línea vertical */}
+              <div className="absolute left-[19px] top-0 h-full w-0.5 bg-secondary md:left-6" />
 
               {HITOS.map((hito, i) => (
                 <div
                   key={hito.title}
-                  ref={(el) => {
-                    hitosRef.current[i] = el;
-                  }}
                   className="relative flex gap-4 pb-10 last:pb-0 md:gap-5"
                 >
                   {/* Icono / punto del timeline */}
