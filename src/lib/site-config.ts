@@ -8,8 +8,8 @@ export const SITE_CONTACT = {
   /** Valor para enlaces tel: (sin espacios) */
   telefonoHref: "tel:+51913367960",
   /** Email de contacto general (footer, contacto) */
-  emailToShowInThePage: "eldebar.snk@gmail.com",
-  emailSendLeads: "eldebar.snk@gmail.com",
+  emailToShowInThePage: "coordinador1@magistralconstructora.com",
+  emailSendLeads: "coordinador1@magistralconstructora.com",
   /** Email receptor oficial del Libro de Reclamaciones (Soporte) */
   emailSoporte: "eder.learning.tiktok@outlook.com",
   direccion: "Calle Los Arces N°220, Cayma, Arequipa",
