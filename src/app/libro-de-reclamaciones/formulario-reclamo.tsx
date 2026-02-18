@@ -85,7 +85,7 @@ export function FormularioReclamo() {
     return (
       <div className="mx-auto max-w-xl rounded-xl border border-secondary/40 bg-card p-8 text-center shadow-lg md:p-10">
         <CheckCircle2 className="mx-auto size-14 text-secondary" />
-        <h3 className="mt-4 font-display text-2xl font-bold text-card-foreground">
+        <h3 className="mt-4 font-sans text-2xl font-bold text-card-foreground">
           Su reclamo ha sido registrado correctamente
         </h3>
         <p className="mt-2 text-base text-card-foreground/90">
@@ -119,7 +119,7 @@ export function FormularioReclamo() {
         )}
 
         <div className="space-y-4">
-          <h3 className="font-display text-lg font-semibold text-foreground">
+          <h3 className="font-sans text-lg font-semibold text-foreground">
             Datos del consumidor
           </h3>
           <FormField
@@ -243,7 +243,7 @@ export function FormularioReclamo() {
         </div>
 
         <div className="space-y-4 border-t border-border pt-6">
-          <h3 className="font-display text-lg font-semibold text-foreground">
+          <h3 className="font-sans text-lg font-semibold text-foreground">
             Detalle del registro
           </h3>
           <FormField

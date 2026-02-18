@@ -152,7 +152,7 @@ export function DistribucionDepartamentos() {
       className={cn("distribucion bg-primary", inView && "in-view")}
     >
       <div className="mx-auto max-w-6xl px-4 py-16 md:px-8 md:py-24 lg:px-16 lg:py-32">
-        <h2 className="text-center font-display text-3xl font-bold text-primary-foreground md:text-4xl lg:text-5xl">
+        <h2 className="text-center font-sans text-3xl font-bold text-primary-foreground md:text-4xl lg:text-5xl">
           Distribución de departamentos
         </h2>
 

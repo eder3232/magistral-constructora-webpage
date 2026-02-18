@@ -91,7 +91,7 @@ export default function ProyectosPage() {
             <p className="mb-3 text-sm font-medium uppercase tracking-[0.25em] text-secondary">
               Magistral Constructora
             </p>
-            <h1 className="font-serif text-5xl font-light leading-tight text-primary-foreground md:text-6xl lg:text-7xl">
+            <h1 className="font-sans text-5xl font-light leading-tight text-primary-foreground md:text-6xl lg:text-7xl">
               Nuestros
               <br />
               <span className="italic text-secondary">Proyectos</span>
@@ -158,7 +158,7 @@ export default function ProyectosPage() {
               {/* Content */}
               <div className="p-6">
                 <div className="flex items-start justify-between gap-4">
-                  <h2 className="font-serif text-2xl font-medium text-foreground transition-colors group-hover:text-primary">
+                  <h2 className="font-sans text-2xl font-medium text-foreground transition-colors group-hover:text-primary">
                     {proyecto.nombre}
                   </h2>
                   <div className="mt-1 flex h-10 w-10 shrink-0 items-center justify-center rounded-full bg-muted transition-all duration-300 group-hover:bg-secondary">

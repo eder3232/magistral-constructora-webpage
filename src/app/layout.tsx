@@ -9,6 +9,7 @@ import { LenisProvider } from "@/components/providers/lenis-provider";
 
 const montserrat = Montserrat({
   variable: "--font-montserrat",
+  weight: ["400", "500", "600", "700"],
   subsets: ["latin"],
 });
 
@@ -26,7 +27,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="h-full">
       <body
-        className={`${montserrat.variable} antialiased flex flex-col min-h-screen`}
+        className={`${montserrat.className} antialiased flex flex-col min-h-screen`}
       >
         <LenisProvider>
           <TooltipProvider>

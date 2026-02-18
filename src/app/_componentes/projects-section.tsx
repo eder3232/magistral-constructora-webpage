@@ -376,11 +376,6 @@ export function ProjectsSection() {
 
   return (
     <div ref={sectionRef} className="projects-section">
-      <link
-        href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=DM+Sans:wght@300;400;500;600&display=swap"
-        rel="stylesheet"
-      />
-
       {/* Section header: fondo primary, texto primary-foreground, acento secondary (globals) */}
       <div
         ref={headingRef}

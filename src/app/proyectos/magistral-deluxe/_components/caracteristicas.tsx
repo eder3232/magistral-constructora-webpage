@@ -77,7 +77,7 @@ export function CaracteristicasV2() {
       className="bg-background py-16 md:py-24 lg:py-32"
     >
       <div className="mx-auto max-w-6xl px-4 md:px-8 lg:px-16">
-        <h2 className="text-center font-display text-3xl font-bold text-foreground md:text-4xl lg:text-5xl">
+        <h2 className="text-center font-sans text-3xl font-bold text-foreground md:text-4xl lg:text-5xl">
           Características y amenidades
         </h2>
 
@@ -123,7 +123,7 @@ export function CaracteristicasV2() {
                       />
                     </div>
                     <div className="flex flex-1 flex-col justify-center p-6 md:p-8">
-                      <h3 className="font-display text-xl font-semibold text-foreground md:text-2xl">
+                      <h3 className="font-sans text-xl font-semibold text-foreground md:text-2xl">
                         {item.title}
                       </h3>
                       <p className="mt-2 text-base text-muted-foreground">

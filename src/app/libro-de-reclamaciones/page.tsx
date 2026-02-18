@@ -17,7 +17,7 @@ export default function LibroReclamacionesPage() {
       >
         <div className="relative z-10 mx-auto max-w-4xl px-4 text-center">
           <div className="mx-auto h-1 w-12 rounded-full bg-secondary" />
-          <h1 className="mt-4 font-display text-3xl font-bold text-primary-foreground md:text-4xl lg:text-5xl">
+          <h1 className="mt-4 font-sans text-3xl font-bold text-primary-foreground md:text-4xl lg:text-5xl">
             Libro de reclamaciones
           </h1>
           <p className="mt-2 text-base text-primary-foreground/90 md:text-lg">
@@ -36,7 +36,7 @@ export default function LibroReclamacionesPage() {
           <div className="mx-auto max-w-3xl">
             <h2
               id="info-legal-heading"
-              className="font-display text-3xl font-bold text-foreground md:text-4xl lg:text-5xl"
+              className="font-sans text-3xl font-bold text-foreground md:text-4xl lg:text-5xl"
             >
               Información importante
             </h2>
@@ -82,7 +82,7 @@ export default function LibroReclamacionesPage() {
         <div className="mx-auto max-w-6xl px-4 py-16 md:px-8 md:py-24 lg:px-16 lg:py-32">
           <h2
             id="form-heading"
-            className="font-display text-3xl font-bold text-primary-foreground md:text-4xl lg:text-5xl"
+            className="font-sans text-3xl font-bold text-primary-foreground md:text-4xl lg:text-5xl"
           >
             Registre su reclamo o queja
           </h2>

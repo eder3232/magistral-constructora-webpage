@@ -27,9 +27,9 @@ export const metadata = {
 const SECTION_CLASS =
   "mx-auto max-w-6xl px-4 py-16 md:px-8 md:py-24 lg:px-16 lg:py-32";
 const TITLE_CLASS_LIGHT =
-  "font-display text-3xl font-bold text-foreground md:text-4xl lg:text-5xl";
+  "font-sans text-3xl font-bold text-foreground md:text-4xl lg:text-5xl";
 const TITLE_CLASS_DARK =
-  "font-display text-3xl font-bold text-primary-foreground md:text-4xl lg:text-5xl";
+  "font-sans text-3xl font-bold text-primary-foreground md:text-4xl lg:text-5xl";
 const LINE_ORANGE = "h-1 w-10 rounded-full bg-secondary";
 const PARAGRAPH_LIGHT = "text-base text-muted-foreground lg:text-lg [&+&]:mt-4";
 const PARAGRAPH_DARK =
@@ -117,7 +117,7 @@ export default function NosotrosPage() {
         />
         <div className="relative z-10 mx-auto max-w-4xl px-4 text-center">
           <div className="mx-auto h-1 w-12 rounded-full bg-secondary" />
-          <h1 className="mt-4 font-display text-3xl font-bold text-primary-foreground md:text-4xl lg:text-5xl">
+          <h1 className="mt-4 font-sans text-3xl font-bold text-primary-foreground md:text-4xl lg:text-5xl">
             Nosotros
           </h1>
           <p className="mt-2 text-base text-primary-foreground/90 md:text-lg">
@@ -224,7 +224,7 @@ export default function NosotrosPage() {
                   <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-secondary/20 text-secondary">
                     <Icon className="size-6" aria-hidden />
                   </div>
-                  <h3 className="mt-4 font-display text-xl font-semibold text-primary-foreground">
+                  <h3 className="mt-4 font-sans text-xl font-semibold text-primary-foreground">
                     {title}
                   </h3>
                   <p className="mt-2 text-sm text-primary-foreground/90 lg:text-base">
@@ -252,7 +252,7 @@ export default function NosotrosPage() {
                 <div className="flex h-12 w-12 items-center justify-center rounded-lg bg-secondary/15 text-secondary">
                   <Icon className="size-6" aria-hidden />
                 </div>
-                <h3 className="mt-4 font-display text-lg font-semibold text-foreground">
+                <h3 className="mt-4 font-sans text-lg font-semibold text-foreground">
                   {title}
                 </h3>
                 <p className={`mt-2 flex-grow ${PARAGRAPH_LIGHT}`}>{text}</p>

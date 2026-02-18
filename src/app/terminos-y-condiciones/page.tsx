@@ -15,7 +15,7 @@ export default function TerminosYCondicionesPage() {
       <section className="relative flex min-h-[40vh] items-center justify-center overflow-hidden bg-primary">
         <div className="mx-auto max-w-4xl px-4 text-center">
           <div className="mx-auto h-1 w-12 rounded-full bg-secondary" />
-          <h1 className="mt-4 font-display text-3xl font-bold text-primary-foreground md:text-4xl lg:text-5xl">
+          <h1 className="mt-4 font-sans text-3xl font-bold text-primary-foreground md:text-4xl lg:text-5xl">
             Términos y Condiciones de Uso
           </h1>
           <p className="mt-2 text-base text-primary-foreground/90 md:text-lg">
@@ -292,7 +292,7 @@ export default function TerminosYCondicionesPage() {
       {/* CTA final — fondo oscuro */}
       <section className="bg-primary">
         <div className="mx-auto max-w-6xl px-4 py-16 text-center md:px-8 md:py-24 lg:px-16 lg:py-32">
-          <h2 className="font-display text-3xl font-bold text-primary-foreground md:text-4xl lg:text-5xl">
+          <h2 className="font-sans text-3xl font-bold text-primary-foreground md:text-4xl lg:text-5xl">
             ¿Tienes preguntas?
           </h2>
           <p className="mt-4 text-base text-primary-foreground/90 lg:text-lg">
@@ -331,7 +331,7 @@ function ArticleBlock({
   return (
     <article className="mb-16 last:mb-0">
       <div className="h-1 w-10 rounded-full bg-secondary" />
-      <h2 className="mt-4 font-display text-2xl font-bold text-foreground md:text-3xl lg:text-4xl">
+      <h2 className="mt-4 font-sans text-2xl font-bold text-foreground md:text-3xl lg:text-4xl">
         {number}. {title}
       </h2>
       <div className="mt-6 space-y-4 text-base text-muted-foreground lg:text-lg [&_p]:leading-relaxed [&_ul]:leading-relaxed">
@@ -353,7 +353,7 @@ function ArticleBlockDark({
   return (
     <article className="mb-16 last:mb-0">
       <div className="h-1 w-10 rounded-full bg-secondary" />
-      <h2 className="mt-4 font-display text-2xl font-bold text-primary-foreground md:text-3xl lg:text-4xl">
+      <h2 className="mt-4 font-sans text-2xl font-bold text-primary-foreground md:text-3xl lg:text-4xl">
         {number}. {title}
       </h2>
       <div className="mt-6 space-y-4 text-base text-primary-foreground/90 lg:text-lg [&_p]:leading-relaxed [&_ul]:leading-relaxed">

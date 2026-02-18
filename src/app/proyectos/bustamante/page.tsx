@@ -42,7 +42,7 @@ export default function Page() {
               </span>
             </div>
 
-            <h1 className="mt-5 font-serif text-4xl font-light leading-tight text-primary-foreground md:text-5xl lg:text-6xl">
+            <h1 className="mt-5 font-sans text-4xl font-light leading-tight text-primary-foreground md:text-5xl lg:text-6xl">
               Residencial
               <br />
               <span className="italic text-secondary">Bustamante</span>

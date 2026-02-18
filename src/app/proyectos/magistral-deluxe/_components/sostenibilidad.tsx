@@ -60,7 +60,7 @@ export function Sostenibilidad() {
       )}
     >
       <div className="mx-auto max-w-6xl">
-        <h2 className="sostenibilidad-title text-center font-display text-3xl font-bold text-primary-foreground md:text-4xl lg:text-5xl">
+        <h2 className="sostenibilidad-title text-center font-sans text-3xl font-bold text-primary-foreground md:text-4xl lg:text-5xl">
           Construido pensando en el futuro
         </h2>
         <p className="sostenibilidad-desc mx-auto mt-4 max-w-2xl text-center text-base text-primary-foreground/85 md:text-lg">
@@ -84,7 +84,7 @@ export function Sostenibilidad() {
                   className="object-contain"
                 />
               </div>
-              <h3 className="mt-4 font-display text-lg font-semibold text-primary-foreground md:text-xl">
+              <h3 className="mt-4 font-sans text-lg font-semibold text-primary-foreground md:text-xl">
                 {punto.title}
               </h3>
               <p className="mt-2 text-sm text-primary-foreground/80 md:text-base">

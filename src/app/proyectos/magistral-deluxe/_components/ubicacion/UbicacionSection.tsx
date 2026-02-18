@@ -36,7 +36,7 @@ export function UbicacionSection() {
                         <MapPin className="size-3" aria-hidden />
                         Ubicación
                     </span>
-                    <h2 className="mt-4 font-display text-3xl font-bold text-foreground md:text-4xl lg:text-5xl">
+                    <h2 className="mt-4 font-sans text-3xl font-bold text-foreground md:text-4xl lg:text-5xl">
                         Una ubicación{" "}
                         <span className="text-secondary">estratégica</span>
                     </h2>

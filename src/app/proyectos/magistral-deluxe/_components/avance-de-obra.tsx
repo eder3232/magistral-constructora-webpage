@@ -42,7 +42,7 @@ export function AvanceDeObra() {
       className="bg-background px-4 py-16 md:px-8 md:py-24 lg:px-16 lg:py-32"
     >
       <div className="mx-auto max-w-6xl">
-        <h2 className="text-center font-display text-3xl font-bold text-foreground md:text-4xl lg:text-5xl">
+        <h2 className="text-center font-sans text-3xl font-bold text-foreground md:text-4xl lg:text-5xl">
           El proyecto está en movimiento
         </h2>
         <p className="mt-3 text-center text-base text-muted-foreground md:text-lg">
@@ -100,7 +100,7 @@ export function AvanceDeObra() {
                   </div>
 
                   <div className="min-w-0 flex-1 pt-1">
-                    <h3 className="font-display text-lg font-semibold text-foreground md:text-xl">
+                    <h3 className="font-sans text-lg font-semibold text-foreground md:text-xl">
                       {hito.title}
                     </h3>
                     <p className="mt-1 text-sm text-muted-foreground md:text-base">

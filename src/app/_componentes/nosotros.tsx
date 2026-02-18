@@ -16,7 +16,7 @@ export function Nosotros() {
             <div>
               <h2
                 id="nosotros-heading"
-                className="font-display text-3xl font-bold tracking-tight text-foreground md:text-4xl lg:text-5xl"
+                className="font-sans text-3xl font-bold tracking-tight text-foreground md:text-4xl lg:text-5xl"
               >
                 Compromiso y experiencia a tu servicio
               </h2>

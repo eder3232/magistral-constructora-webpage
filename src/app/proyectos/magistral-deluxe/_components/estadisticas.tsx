@@ -77,7 +77,7 @@ export function Estadisticas() {
               key={stat.label}
               className="flex flex-col items-center text-center"
             >
-              <div className="font-display text-5xl font-bold text-primary-foreground md:text-6xl lg:text-6xl">
+              <div className="font-sans text-5xl font-bold text-primary-foreground md:text-6xl lg:text-6xl">
                 <span
                   ref={(el) => {
                     numberRefs.current[i] = el;
@@ -93,7 +93,7 @@ export function Estadisticas() {
             </div>
           ))}
         </div>
-        <p className="mt-16 text-center font-display text-lg italic text-primary-foreground/80 md:text-xl">
+        <p className="mt-16 text-center font-sans text-lg italic text-primary-foreground/80 md:text-xl">
           Construido con calidad y precisión
         </p>
       </div>
