@@ -20,7 +20,7 @@ const proyectos = [
     estacionamientos: 13,
     dormitorios: "2 y 3 dormitorios",
     areaTerreno: "301.20 m²",
-    estado: "En venta",
+    estado: "En construcción",
     imagen: "/projects/magistral/hero.png",
     highlights: ["Sky Bar", "Coworking", "Techos verdes", "Monta-vehículos"],
   },
@@ -36,7 +36,7 @@ const proyectos = [
     estacionamientos: 5,
     dormitorios: "2 dormitorios",
     areaTerreno: "250.75 m²",
-    estado: "Pre-venta",
+    estado: "En lanzamiento",
     imagen: "/projects/bustamante/hero.png",
     highlights: [
       "Jardín interior",

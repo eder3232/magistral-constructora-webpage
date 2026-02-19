@@ -31,7 +31,7 @@ export function Hero() {
             y: "-2%",
             duration: KEN_BURNS_DURATION,
             ease: "power2.out",
-          }
+          },
         );
       }
 
@@ -44,12 +44,16 @@ export function Hero() {
             opacity: OVERLAY_OPACITY,
             duration: 0.7,
             ease: "power2.out",
-          }
+          },
         );
       }
 
       /* Contenido: stagger (h1 → subtítulo → botón) */
-      const contentEls = [titleRef.current, subtitleRef.current, ctaRef.current].filter(Boolean);
+      const contentEls = [
+        titleRef.current,
+        subtitleRef.current,
+        ctaRef.current,
+      ].filter(Boolean);
       gsap.fromTo(
         contentEls,
         { opacity: 0, y: 28 },
@@ -60,7 +64,7 @@ export function Hero() {
           stagger: STAGGER_DELAY,
           ease: "power3.out",
           delay: 0.25,
-        }
+        },
       );
     }, sectionRef);
 
@@ -110,18 +114,18 @@ export function Hero() {
           className="text-lg sm:text-xl lg:text-2xl text-balance text-gray-100 mb-12 leading-relaxed max-w-3xl mx-auto"
           style={{ opacity: 0, transform: "translateY(28px)" }}
         >
-          Experiencia de lujo y confort en el corazón de Arequipa
+          Experiencia de lujo y confort en el corazón de Cayma
         </p>
-        <div
-          ref={ctaRef}
-          style={{ opacity: 0, transform: "translateY(28px)" }}
-        >
+        <div ref={ctaRef} style={{ opacity: 0, transform: "translateY(28px)" }}>
           <Button
             size="lg"
             onClick={() => {
-              const contactoSection = document.getElementById("contacto");
-              if (contactoSection) {
-                contactoSection.scrollIntoView({ behavior: "smooth", block: "start" });
+              const ubicacionSection = document.getElementById("ubicacion");
+              if (ubicacionSection) {
+                ubicacionSection.scrollIntoView({
+                  behavior: "smooth",
+                  block: "start",
+                });
               }
             }}
             className="bg-secondary text-secondary-foreground hover:bg-secondary/80 font-semibold px-8 py-3 rounded-lg transition-colors"
