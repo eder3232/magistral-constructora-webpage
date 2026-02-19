@@ -15,10 +15,10 @@ import { cn } from "@/lib/utils";
 
 const ITEMS = [
   {
-    image: "/projects/magistral/caracteristicas_images/skybar.png",
-    title: "Sky Bar",
+    image: "/projects/magistral/caracteristicas_images/recepcion.png",
+    title: "Recepción",
     description:
-      "Disfruta del mejor panorama de Cayma desde la azotea con un espacio exclusivo para relajarte y socializar.",
+      "Un espacio moderno y funcional para recibir a los invitados y ofrecer un servicio de primera clase.",
   },
   {
     image: "/projects/magistral/caracteristicas_images/coworking.png",
@@ -76,12 +76,12 @@ export function CaracteristicasV2() {
       aria-label="Características"
       className="bg-background py-16 md:py-24 lg:py-32"
     >
-      <div className="mx-auto max-w-6xl px-4 md:px-8 lg:px-16">
+      <div className="mx-auto max-w-7xl px-4 md:px-6 lg:px-8">
         <h2 className="text-center font-sans text-3xl font-bold text-foreground md:text-4xl lg:text-5xl">
           Características y amenidades
         </h2>
 
-        <div className="relative mt-10 lg:mt-12">
+        <div className="relative mt-10 lg:mt-14">
           <Carousel
             setApi={setApi}
             opts={{
@@ -90,45 +90,43 @@ export function CaracteristicasV2() {
             }}
             plugins={[
               Autoplay({
-                delay: 4000,
+                delay: 5000,
                 stopOnInteraction: true,
               }),
             ]}
             className="w-full"
           >
-            <CarouselContent className="-ml-2 sm:-ml-4 md:-ml-6">
+            <CarouselContent className="ml-0">
               {ITEMS.map((item) => (
-                <CarouselItem
-                  key={item.title}
-                  className="basis-full pl-2 sm:pl-4 md:basis-[85%] md:pl-6 lg:basis-[70%]"
-                >
-                  <article
-                    className={cn(
-                      "overflow-hidden rounded-xl border-0 bg-card shadow-md",
-                      "flex flex-col md:flex-row md:items-stretch",
-                    )}
-                  >
-                    <div className="relative aspect-[16/10] w-full shrink-0 md:aspect-auto md:w-2/5 md:min-h-[280px]">
+                <CarouselItem key={item.title} className="basis-full pl-0">
+                  <article className="group relative w-full overflow-hidden rounded-2xl bg-card shadow-xl ring-1 ring-border/50">
+                    {/* Imagen 1800×1200 — ratio 3:2, ancho completo */}
+                    <div className="relative aspect-3/2 w-full">
                       <Image
                         src={item.image}
                         alt=""
                         fill
-                        sizes="(max-width: 768px) 100vw, 45vw"
-                        className="object-cover"
+                        sizes="(max-width: 1024px) 100vw, 1280px"
+                        className="object-cover transition-transform duration-700 ease-out group-hover:scale-[1.02]"
                         priority={false}
                       />
+                      {/* Franja inferior con gradiente para legibilidad */}
                       <div
-                        className="absolute left-0 right-0 top-0 h-1 bg-secondary"
+                        className="absolute inset-x-0 bottom-0 flex flex-col justify-end bg-linear-to-t from-black/85 via-black/50 to-transparent pt-24 pb-6 pl-5 pr-5 md:pb-8 md:pl-8 md:pr-8"
                         aria-hidden
                       />
-                    </div>
-                    <div className="flex flex-1 flex-col justify-center p-6 md:p-8">
-                      <h3 className="font-sans text-xl font-semibold text-foreground md:text-2xl">
-                        {item.title}
-                      </h3>
-                      <p className="mt-2 text-base text-muted-foreground">
-                        {item.description}
-                      </p>
+                      {/* Contenido superpuesto */}
+                      <div className="absolute inset-x-0 bottom-0 p-5 text-white md:p-8">
+                        <div className="mx-auto max-w-3xl">
+                          <span className="mb-1 block h-0.5 w-12 bg-secondary" aria-hidden />
+                          <h3 className="font-sans text-2xl font-semibold tracking-tight md:text-3xl lg:text-4xl">
+                            {item.title}
+                          </h3>
+                          <p className="mt-2 max-w-2xl text-sm leading-relaxed text-white/90 md:text-base lg:text-lg">
+                            {item.description}
+                          </p>
+                        </div>
+                      </div>
                     </div>
                   </article>
                 </CarouselItem>
@@ -136,11 +134,11 @@ export function CaracteristicasV2() {
             </CarouselContent>
 
             <CarouselPrevious
-              className="-left-2 size-10 border-2 border-border bg-background/90 shadow-md hover:bg-background md:-left-6 md:size-12"
+              className="-left-3 size-11 border-2 border-border bg-background/95 shadow-lg hover:bg-background md:-left-4 md:size-12"
               aria-label="Anterior"
             />
             <CarouselNext
-              className="-right-2 size-10 border-2 border-border bg-background/90 shadow-md hover:bg-background md:-right-6 md:size-12"
+              className="-right-3 size-11 border-2 border-border bg-background/95 shadow-lg hover:bg-background md:-right-4 md:size-12"
               aria-label="Siguiente"
             />
           </Carousel>

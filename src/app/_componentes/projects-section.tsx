@@ -9,23 +9,6 @@ import { projectsData, type ProjectData } from "./projects-data";
 import { Button } from "@/components/ui/button";
 import "./projects-section.css";
 
-/** Divisor centrado: raya · punto · raya. Fondo según el bloque que sigue (dark = primary, light = blanco). */
-function ProjectsDivider({ nextBlockDark }: { nextBlockDark: boolean }) {
-  return (
-    <div
-      className="flex w-full items-center justify-center gap-3 py-8"
-      style={{
-        background: nextBlockDark ? "var(--primary)" : "var(--background)",
-      }}
-      aria-hidden
-    >
-      <span className="h-px w-16 max-w-[80px] flex-1 bg-border/80" />
-      <span className="size-1.5 shrink-0 rounded-full bg-secondary" />
-      <span className="h-px w-16 max-w-[80px] flex-1 bg-border/80" />
-    </div>
-  );
-}
-
 gsap.registerPlugin(ScrollTrigger);
 
 function ProjectBlock({
@@ -267,7 +250,9 @@ function ProjectBlock({
                     : { borderColor: "var(--primary)" }
                 }
               >
-                <Link href={`/proyectos/${project.slug}`}>Conocer Proyecto →</Link>
+                <Link href={`/proyectos/${project.slug}`}>
+                  Conocer Proyecto →
+                </Link>
               </Button>
             </div>
           </div>
@@ -297,7 +282,7 @@ function ProjectBlock({
               {project.status}
             </div>
             <div
-              className="relative aspect-[3/4] rounded-xl overflow-hidden"
+              className="relative aspect-3/4 rounded-xl overflow-hidden"
               style={{
                 border: `1px solid ${project.accent}22`,
                 boxShadow: "var(--projects-shadow)",
@@ -381,7 +366,7 @@ export function ProjectsSection() {
         ref={headingRef}
         className="min-h-[50vh] flex flex-col items-center justify-center text-center px-6 relative bg-primary"
       >
-        <div
+        {/* <div
           ref={lineRef}
           className="w-px overflow-hidden"
           style={{
@@ -389,13 +374,13 @@ export function ProjectsSection() {
               "linear-gradient(to bottom, transparent, rgba(255, 106, 57, 0.5))",
             marginBottom: 32,
           }}
-        />
-        <span
+        /> */}
+        {/* <span
           ref={labelRef}
           className="uppercase text-[11px] tracking-[0.35em] mb-6 text-primary-foreground/90"
         >
           Nuestro trabajo
-        </span>
+        </span> */}
         <h1
           ref={titleRef}
           className="text-4xl md:text-6xl lg:text-7xl font-bold mb-6 leading-tight text-primary-foreground"
@@ -419,7 +404,10 @@ export function ProjectsSection() {
           className="flex flex-wrap items-center justify-center gap-6 mt-12"
         >
           {projectsData.map((p) => (
-            <div key={p.id} className="flex items-center gap-3">
+            <div
+              key={p.id}
+              className="flex items-center gap-3 bg-primary-foreground/30 p-2 rounded-md"
+            >
               <div
                 className="w-8 h-0.5 rounded-full"
                 style={{ background: p.accent }}
@@ -434,7 +422,6 @@ export function ProjectsSection() {
 
       {projectsData.map((project, index) => (
         <div key={project.id}>
-          <ProjectsDivider nextBlockDark={index % 2 === 1} />
           <ProjectBlock
             project={project}
             index={index}
