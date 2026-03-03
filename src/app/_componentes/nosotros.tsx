@@ -106,7 +106,13 @@ export function Nosotros() {
       );
     }, sectionRef);
 
-    return () => ctx.revert();
+    // Recalcular ScrollTrigger cuando el layout esté listo (estructura con max-w-7xl)
+    const refreshTimer = setTimeout(() => ScrollTrigger.refresh(), 100);
+
+    return () => {
+      clearTimeout(refreshTimer);
+      ctx.revert();
+    };
   }, []);
 
   return (
@@ -120,8 +126,9 @@ export function Nosotros() {
         ref={pinRef}
         className="relative flex min-h-screen w-full flex-col lg:flex-row"
       >
-        {/* Columna texto: fija a la izquierda */}
-        <div className="flex flex-1 flex-col justify-center px-6 py-12 lg:max-w-[50%] lg:px-12 lg:py-16">
+        <div className="mx-auto flex w-full max-w-7xl flex-1 flex-col gap-8 px-4 py-12 sm:px-6 lg:flex-row lg:items-stretch lg:gap-12 lg:px-8 lg:py-16">
+          {/* Columna texto */}
+          <div className="flex min-w-0 flex-1 flex-col justify-center">
           <h2
             id="nosotros-heading"
             ref={titleRef}
@@ -151,15 +158,15 @@ export function Nosotros() {
             solidez y un servicio cercano para que tu inversión sea tranquila y
             tu experiencia, excelente.
           </p>
-        </div>
+          </div>
 
-        {/* Columna carrusel: 3 slides apilados, transición con scroll */}
-        <div className="relative flex-1 overflow-hidden lg:min-h-screen">
-          <div className="relative h-[60vh] w-full lg:h-screen">
-            <div
-              ref={slide1Ref}
-              className="absolute inset-0 flex items-center justify-center"
-            >
+          {/* Columna carrusel: 3 slides apilados, transición con scroll */}
+          <div className="relative flex min-w-0 flex-1 overflow-hidden lg:min-h-screen">
+            <div className="relative h-[60vh] w-full lg:h-full">
+              <div
+                ref={slide1Ref}
+                className="absolute inset-0 flex items-center justify-center lg:justify-start"
+              >
               <div className="relative h-full w-full max-w-md overflow-hidden rounded-xl border-2 border-secondary/30 shadow-xl">
                 <Image
                   src={SLIDES[0].src}
@@ -172,10 +179,10 @@ export function Nosotros() {
                 />
               </div>
             </div>
-            <div
-              ref={slide2Ref}
-              className="absolute inset-0 flex items-center justify-center"
-            >
+              <div
+                ref={slide2Ref}
+                className="absolute inset-0 flex items-center justify-center lg:justify-start"
+              >
               <div className="relative h-full w-full max-w-md overflow-hidden rounded-xl border-2 border-secondary/30 shadow-xl">
                 <Image
                   src={SLIDES[1].src}
@@ -187,10 +194,10 @@ export function Nosotros() {
                 />
               </div>
             </div>
-            <div
-              ref={slide3Ref}
-              className="absolute inset-0 flex items-center justify-center"
-            >
+              <div
+                ref={slide3Ref}
+                className="absolute inset-0 flex items-center justify-center lg:justify-start"
+              >
               <div className="relative h-full w-full max-w-md overflow-hidden rounded-xl border-2 border-secondary/30 shadow-xl">
                 <Image
                   src={SLIDES[2].src}
@@ -203,6 +210,7 @@ export function Nosotros() {
               </div>
             </div>
           </div>
+        </div>
         </div>
       </div>
     </section>

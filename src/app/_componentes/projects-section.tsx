@@ -7,6 +7,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { projectsData, type ProjectData } from "./projects-data";
 import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 import "./projects-section.css";
 
 gsap.registerPlugin(ScrollTrigger);
@@ -324,11 +325,12 @@ function ProjectBlock({
               <Button
                 asChild
                 variant="outline"
-                className={
+                className={cn(
+                  "uppercase tracking-widest rounded border-2 transition-colors px-6 py-3 lg:p-8 text-base lg:text-3xl font-semibold",
                   dark
-                    ? "uppercase tracking-widest text-sm rounded border-2 hover:bg-white hover:text-slate-900 transition-colors"
-                    : "uppercase tracking-widest text-sm rounded border-2 border-primary text-primary hover:bg-primary hover:text-primary-foreground transition-colors"
-                }
+                    ? "hover:bg-white hover:text-slate-900"
+                    : "border-primary text-primary hover:bg-primary hover:text-primary-foreground",
+                )}
                 style={
                   dark
                     ? { borderColor: project.accent }
