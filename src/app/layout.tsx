@@ -1,5 +1,5 @@
 import type { Metadata } from "next";
-import { Montserrat } from "next/font/google";
+import { Poppins } from "next/font/google";
 import "./globals.css";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { Toaster } from "@/components/ui/sonner";
@@ -7,8 +7,8 @@ import { Navbar } from "@/components/common/navbar";
 import { Footer } from "@/components/common/footer";
 import { LenisProvider } from "@/components/providers/lenis-provider";
 
-const montserrat = Montserrat({
-  variable: "--font-montserrat",
+const poppins = Poppins({
+  variable: "--font-poppins",
   weight: ["400", "500", "600", "700"],
   subsets: ["latin"],
 });
@@ -27,7 +27,7 @@ export default function RootLayout({
   return (
     <html lang="en" className="h-full">
       <body
-        className={`${montserrat.className} antialiased flex flex-col min-h-screen`}
+        className={`${poppins.variable} ${poppins.className} antialiased flex flex-col min-h-screen`}
       >
         <LenisProvider>
           <TooltipProvider>

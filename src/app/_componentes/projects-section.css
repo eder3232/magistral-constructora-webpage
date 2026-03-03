@@ -11,5 +11,5 @@
   --projects-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.4);
 
   /* Tipografía del heading */
-  --projects-font-heading: var(--font-montserrat);
+  --projects-font-heading: var(--font-poppins);
 }
