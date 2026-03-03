@@ -37,76 +37,161 @@ function ProjectBlock({
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      const triggers = [
-        { ref: subtitleRef, y: 24, delay: 0 },
-        { ref: titleRef, y: 36, delay: 0.08 },
-        { ref: locationRef, y: 20, delay: 0.12 },
-        { ref: lineRef, width: "0%", delay: 0.18 },
-        { ref: descRef, y: 24, delay: 0.2 },
-        { ref: statsRef, y: 32, delay: 0.28 },
-        { ref: featuresRef, y: 20, delay: 0.36 },
-        { ref: ctaRef, y: 24, delay: 0.44 },
-      ];
+      if (!blockRef.current) return;
 
-      triggers.forEach(({ ref, y, delay }, i) => {
-        const el = ref.current;
-        if (!el || !blockRef.current) return;
-        const isLine = ref === lineRef;
-        gsap.fromTo(
-          el,
-          {
-            opacity: 0,
-            ...(isLine ? { width: "0%" } : { y }),
-          },
-          {
-            opacity: 1,
-            ...(isLine ? { width: "60px" } : { y: 0 }),
-            duration: 0.85,
-            ease: "power3.out",
-            delay,
-            scrollTrigger: {
-              trigger: blockRef.current,
-              start: "top 75%",
-              toggleActions: "play none none none",
-            },
-          },
-        );
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: blockRef.current,
+          start: "top top",
+          end: "+=200%",
+          scrub: 0.8,
+          pin: true,
+          anticipatePin: 1,
+        },
       });
 
-      if (statusRef.current && blockRef.current) {
-        gsap.fromTo(
-          statusRef.current,
-          { opacity: 0, scale: 0.9 },
-          {
-            opacity: 1,
-            scale: 1,
-            duration: 0.6,
-            delay: 0.2,
-            scrollTrigger: {
-              trigger: blockRef.current,
-              start: "top 75%",
-              toggleActions: "play none none none",
-            },
-          },
-        );
-      }
-
-      if (imageWrapRef.current && blockRef.current) {
-        gsap.fromTo(
+      if (imageWrapRef.current) {
+        tl.fromTo(
           imageWrapRef.current,
-          { opacity: 0, x: 80, scale: 0.98 },
+          {
+            opacity: 0,
+            x: reverse ? -80 : 80,
+            scale: 0.98,
+          },
           {
             opacity: 1,
             x: 0,
             scale: 1,
             duration: 1,
             ease: "power3.out",
-            scrollTrigger: {
-              trigger: blockRef.current,
-              start: "top 70%",
-              toggleActions: "play none none none",
-            },
           },
+          0,
+        );
+      }
+
+      if (statusRef.current) {
+        tl.fromTo(
+          statusRef.current,
+          { opacity: 0, scale: 0.9 },
+          {
+            opacity: 1,
+            scale: 1,
+            duration: 0.6,
+            ease: "power3.out",
+          },
+          0.1,
+        );
+      }
+
+      if (subtitleRef.current) {
+        tl.fromTo(
+          subtitleRef.current,
+          { opacity: 0, y: 24 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.7,
+            ease: "power3.out",
+          },
+          0.2,
+        );
+      }
+
+      if (titleRef.current) {
+        tl.fromTo(
+          titleRef.current,
+          { opacity: 0, y: 36 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.8,
+            ease: "power3.out",
+          },
+          0.3,
+        );
+      }
+
+      if (locationRef.current) {
+        tl.fromTo(
+          locationRef.current,
+          { opacity: 0, y: 20 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.7,
+            ease: "power3.out",
+          },
+          0.4,
+        );
+      }
+
+      if (lineRef.current) {
+        tl.fromTo(
+          lineRef.current,
+          { opacity: 0, width: "0%" },
+          {
+            opacity: 1,
+            width: "60px",
+            duration: 0.7,
+            ease: "power3.out",
+          },
+          0.5,
+        );
+      }
+
+      if (descRef.current) {
+        tl.fromTo(
+          descRef.current,
+          { opacity: 0, y: 24 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.8,
+            ease: "power3.out",
+          },
+          0.6,
+        );
+      }
+
+      if (statsRef.current) {
+        tl.fromTo(
+          statsRef.current,
+          { opacity: 0, y: 32 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.8,
+            ease: "power3.out",
+          },
+          0.7,
+        );
+      }
+
+      if (featuresRef.current) {
+        tl.fromTo(
+          featuresRef.current,
+          { opacity: 0, y: 20 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.8,
+            ease: "power3.out",
+          },
+          0.8,
+        );
+      }
+
+      if (ctaRef.current) {
+        tl.fromTo(
+          ctaRef.current,
+          { opacity: 0, y: 24 },
+          {
+            opacity: 1,
+            y: 0,
+            duration: 0.8,
+            ease: "power3.out",
+          },
+          0.9,
         );
       }
     }, blockRef);
