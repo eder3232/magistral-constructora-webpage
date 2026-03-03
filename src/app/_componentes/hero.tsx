@@ -2,7 +2,10 @@
 
 import { useRef, useEffect } from "react";
 import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 import { Button } from "@/components/ui/button";
+
+gsap.registerPlugin(ScrollTrigger);
 
 const OVERLAY_OPACITY = 0.4;
 const STAGGER_DELAY = 0.2;
@@ -19,7 +22,7 @@ export function Hero() {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      /* Ken Burns: zoom + pan suave en el fondo */
+      /* Ken Burns: zoom + pan suave en el fondo (entrada) */
       if (bgRef.current) {
         gsap.fromTo(
           bgRef.current,
@@ -61,6 +64,55 @@ export function Hero() {
           delay: 0.25,
         }
       );
+
+      /* Salida ligada al scroll: contenido sube y se desvanece, fondo zoom + parallax */
+      if (!sectionRef.current) return;
+
+      const exitTl = gsap.timeline({
+        scrollTrigger: {
+          trigger: sectionRef.current,
+          start: "top top",
+          end: "+=70%",
+          scrub: 0.6,
+        },
+      });
+
+      if (titleRef.current) {
+        exitTl.to(
+          titleRef.current,
+          { opacity: 0, y: -60, ease: "power2.in" },
+          0,
+        );
+      }
+      if (subtitleRef.current) {
+        exitTl.to(
+          subtitleRef.current,
+          { opacity: 0, y: -50, ease: "power2.in" },
+          0,
+        );
+      }
+      if (ctaRef.current) {
+        exitTl.to(ctaRef.current, { opacity: 0, y: -40, ease: "power2.in" }, 0);
+      }
+      if (bgRef.current) {
+        exitTl.to(
+          bgRef.current,
+          {
+            scale: 1.2,
+            y: "-12%",
+            x: "-2%",
+            ease: "power2.in",
+          },
+          0,
+        );
+      }
+      if (overlayRef.current) {
+        exitTl.to(
+          overlayRef.current,
+          { opacity: 0.75, ease: "power2.in" },
+          0,
+        );
+      }
     }, sectionRef);
 
     return () => ctx.revert();
