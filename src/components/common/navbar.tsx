@@ -88,7 +88,7 @@ export function Navbar() {
               size="sm"
               className="bg-secondary text-secondary-foreground hover:bg-secondary/80 font-semibold rounded-lg px-5 shadow-md"
             >
-              <Link href="#contacto">Contáctanos</Link>
+              <Link href="/contactanos">Contáctanos</Link>
             </Button>
           </div>
 
@@ -129,7 +129,7 @@ export function Navbar() {
                     asChild
                     className="mt-4 bg-secondary text-secondary-foreground hover:bg-secondary/80 font-semibold rounded-lg"
                   >
-                    <Link href="#contacto">Contáctanos</Link>
+                    <Link href="/contactanos">Contáctanos</Link>
                   </Button>
                 </div>
               </SheetContent>
