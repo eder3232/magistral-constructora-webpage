@@ -58,8 +58,8 @@ export function UbicacionSection() {
                     }}
                 />
 
-                {/* Mapa + Lista */}
-                <div className="mt-6 grid gap-4 lg:grid-cols-[1.4fr_1fr] lg:gap-6">
+                {/* Mapa + Lista: fila fija en lg para que la lista tenga scroll */}
+                <div className="mt-6 grid gap-4 lg:grid-cols-[1.4fr_1fr] lg:grid-rows-[456px] lg:gap-6">
                     <div className="h-[320px] min-h-[320px] md:h-[400px] lg:h-[456px]">
                         <MapSection
                             project={projectData}
@@ -70,11 +70,12 @@ export function UbicacionSection() {
                             className="h-full"
                         />
                     </div>
-                    <div className="min-h-0">
+                    <div className="flex min-h-0 flex-col lg:h-full">
                         <POIList
                             pois={filteredPois}
                             hoveredId={hoveredId}
                             onHoverChange={setHoveredId}
+                            className="min-h-0 flex-1 overflow-y-auto"
                         />
                     </div>
                 </div>

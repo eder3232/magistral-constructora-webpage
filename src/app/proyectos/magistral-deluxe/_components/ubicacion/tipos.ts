@@ -12,4 +12,7 @@ export interface ProjectData {
   projectName: string;
   projectAddress: string;
   coordinates: { lat: number; lng: number };
+  /** Desplazamiento del centro del mapa en metros (x: este/oeste, y: norte/sur). Opcional. */
+  x?: number;
+  y?: number;
 }

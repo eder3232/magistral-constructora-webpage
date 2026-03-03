@@ -3,12 +3,12 @@
  * El resto de colores se toman de globals.css (--primary, --secondary, --muted, --border, etc.).
  */
 
-/* Categorías de POI: alineadas al theme */
+/* Categorías de POI: paleta de colores */
 .ubicacion-section {
-  --ubicacion-category-comercial: var(--secondary);
-  --ubicacion-category-servicios: var(--chart-4);
-  --ubicacion-category-educacion: var(--primary);
-  --ubicacion-category-salud: var(--destructive);
+  --ubicacion-category-comercial: #1a3c6e;
+  --ubicacion-category-servicios: #206a4f;
+  --ubicacion-category-educacion: #5c3d8f;
+  --ubicacion-category-salud: #c0392b;
 }
 
 /* Glow del marcador del proyecto en el mapa (secondary = #ff6a39) */
@@ -19,5 +19,16 @@
   }
   50% {
     box-shadow: 0 0 28px rgba(255, 106, 57, 0.5);
+  }
+}
+
+/* Glow del icono del edificio (primary = #003b5c) */
+@keyframes ubicacion-building-glow {
+  0%,
+  100% {
+    box-shadow: 0 0 20px rgba(0, 59, 92, 0.4);
+  }
+  50% {
+    box-shadow: 0 0 30px rgba(0, 59, 92, 0.55);
   }
 }

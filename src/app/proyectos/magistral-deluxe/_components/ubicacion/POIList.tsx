@@ -22,7 +22,8 @@ export function POIList({
   return (
     <div
       className={cn(
-        "flex max-h-[456px] flex-col gap-2 overflow-y-auto pr-1",
+        "flex min-h-0 flex-col gap-2 pr-1",
+        "max-h-[456px] lg:max-h-none",
         className
       )}
       role="list"

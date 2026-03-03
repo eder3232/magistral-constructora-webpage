@@ -67,7 +67,7 @@ export default function Page() {
                 variant="outline"
                 className="bg-white/5 text-primary-foreground hover:bg-white/10 hover:text-primary-foreground border-white/15"
               >
-                <Link href="/#contacto">
+                <Link href="/contactanos">
                   <Bell className="h-4 w-4" />
                   Quiero que me contacten
                 </Link>
@@ -187,7 +187,7 @@ export default function Page() {
                   listo.
                 </p>
                 <Button asChild className="font-semibold">
-                  <Link href="/#contacto">Contactar</Link>
+                  <Link href="/contactanos">Contactar</Link>
                 </Button>
               </div>
             </CardContent>

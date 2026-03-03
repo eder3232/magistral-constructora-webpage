@@ -19,10 +19,11 @@ export const COLORS = {
   secondary: "#ff6a39",
   orange: "#ff6a39",
   orangeLight: "#f08a4a",
-  /** Verde para categoría servicios (chart-4) */
-  verde: "#b8a530",
-  /** Rojo suave para salud (destructive) */
-  salud: "#c2410c",
+  /** Paleta categorías: comercial, servicios, educación, salud */
+  comercial: "#1a3c6e",
+  servicios: "#206a4f",
+  educacion: "#5c3d8f",
+  salud: "#c0392b",
   white: "#FFFFFF",
   graySoft: "#6b7280",
   /** Fondo claro para contenedor del mapa en sección blanca */
@@ -36,7 +37,7 @@ export const CATEGORIES: Record<
 > = {
   comercial: {
     label: "Comercial",
-    color: COLORS.orange,
+    color: COLORS.comercial,
     Icon: ShoppingBag,
   },
   // transporte: {
@@ -46,12 +47,12 @@ export const CATEGORIES: Record<
   // },
   servicios: {
     label: "Servicios",
-    color: COLORS.verde,
+    color: COLORS.servicios,
     Icon: Building2,
   },
   educacion: {
     label: "Educación",
-    color: COLORS.primary,
+    color: COLORS.educacion,
     Icon: GraduationCap,
   },
   salud: {
@@ -79,8 +80,8 @@ export const TRAVEL_MODE_OPTIONS: Record<
 /** Id para filtro "Todos" */
 export const FILTER_ALL = "todos" as const;
 
-/** Radios de los anillos del mapa en metros */
-export const MAP_RING_RADII_METERS = [100, 250, 500, 1000];
+/** Radio del anillo de distancia en el mapa (solo uno para no saturar) */
+export const MAP_RING_RADII_METERS = [250];
 
 /** Estilos del mapa (tema claro, coherente con sección blanca) */
 export const MAP_STYLES: google.maps.MapTypeStyle[] = [
