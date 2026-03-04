@@ -52,18 +52,17 @@ export function Hero() {
 
       /* Contenido: stagger (h1 → subtítulo → botón) */
       const contentEls = [titleRef.current, subtitleRef.current, ctaRef.current].filter(Boolean);
-      gsap.fromTo(
-        contentEls,
-        { opacity: 0, y: 28 },
-        {
+      if (contentEls.length) {
+        gsap.set(contentEls, { opacity: 0, y: 28 });
+        gsap.to(contentEls, {
           opacity: 1,
           y: 0,
           duration: CONTENT_DURATION,
           stagger: STAGGER_DELAY,
           ease: "power3.out",
           delay: 0.25,
-        }
-      );
+        });
+      }
 
       /* Salida ligada al scroll: contenido sube y se desvanece, fondo zoom + parallax */
       if (!sectionRef.current) return;
@@ -78,21 +77,28 @@ export function Hero() {
       });
 
       if (titleRef.current) {
-        exitTl.to(
+        exitTl.fromTo(
           titleRef.current,
-          { opacity: 0, y: -60, ease: "power2.in" },
+          { opacity: 1, y: 0 },
+          { opacity: 0, y: -60, ease: "power2.in", immediateRender: false },
           0,
         );
       }
       if (subtitleRef.current) {
-        exitTl.to(
+        exitTl.fromTo(
           subtitleRef.current,
-          { opacity: 0, y: -50, ease: "power2.in" },
+          { opacity: 1, y: 0 },
+          { opacity: 0, y: -50, ease: "power2.in", immediateRender: false },
           0,
         );
       }
       if (ctaRef.current) {
-        exitTl.to(ctaRef.current, { opacity: 0, y: -40, ease: "power2.in" }, 0);
+        exitTl.fromTo(
+          ctaRef.current,
+          { opacity: 1, y: 0 },
+          { opacity: 0, y: -40, ease: "power2.in", immediateRender: false },
+          0,
+        );
       }
       if (bgRef.current) {
         exitTl.to(
@@ -146,20 +152,17 @@ export function Hero() {
         <h1
           ref={titleRef}
           className="text-5xl sm:text-6xl lg:text-7xl font-bold text-balance leading-tight mb-6"
-          style={{ opacity: 0, transform: "translateY(28px)" }}
         >
           Tu hogar en Arequipa
         </h1>
         <p
           ref={subtitleRef}
           className="text-lg sm:text-xl lg:text-2xl text-balance text-gray-100 mb-12 leading-relaxed"
-          style={{ opacity: 0, transform: "translateY(28px)" }}
         >
           Departamentos y proyectos inmobiliarios en las mejores zonas de Arequipa
         </p>
         <div
           ref={ctaRef}
-          style={{ opacity: 0, transform: "translateY(28px)" }}
         >
           <Button
             size="lg"
