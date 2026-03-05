@@ -451,7 +451,7 @@ export function ProjectsSection() {
       {/* Section header: fondo primary, texto primary-foreground, acento secondary (globals) */}
       <div
         ref={headingRef}
-        className="min-h-[50vh] flex flex-col items-center justify-center text-center px-6 relative bg-primary"
+        className="min-h-[50vh] flex flex-col items-center justify-center text-center px-6 relative bg-primary py-12"
       >
         {/* <div
           ref={lineRef}
