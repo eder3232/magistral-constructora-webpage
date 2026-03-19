@@ -18,6 +18,7 @@ const navLinks = [
   { label: "Inicio", href: "/" },
   { label: "Proyectos", href: "/proyectos" },
   { label: "Nosotros", href: "/nosotros" },
+  { label: "Blog", href: "/blog" },
 ];
 
 export function Navbar() {
