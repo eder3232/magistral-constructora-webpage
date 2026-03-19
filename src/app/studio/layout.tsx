@@ -5,5 +5,5 @@ export default function StudioLayout({
 }: {
   children: React.ReactNode;
 }) {
-  return <div className="fixed inset-0 z-[9999]">{children}</div>;
+  return <div className="fixed inset-0 z-9">{children}</div>;
 }
