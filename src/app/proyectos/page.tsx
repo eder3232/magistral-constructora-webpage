@@ -24,27 +24,27 @@ const proyectos = [
     imagen: "/projects/magistral/hero.png",
     highlights: ["Sky Bar", "Coworking", "Techos verdes", "Monta-vehículos"],
   },
-  {
-    slug: "bustamante",
-    nombre: "Edificio Bustamante",
-    ubicacion: "Calle Indo, Coop. Manuel Prado N°58, Mz E Lt 28",
-    distrito: "José Luis Bustamante y Rivero",
-    descripcion:
-      "Edificio multifamiliar de 5 niveles + azotea con departamentos funcionales de 2 dormitorios, jardines interiores y ascensor directo.",
-    niveles: 5,
-    departamentos: 9,
-    estacionamientos: 5,
-    dormitorios: "2 dormitorios",
-    areaTerreno: "250.75 m²",
-    estado: "En lanzamiento",
-    imagen: "/projects/bustamante/hero.png",
-    highlights: [
-      "Jardín interior",
-      "Walking closet",
-      "SUM",
-      "Área de parrilla",
-    ],
-  },
+  // {
+  //   slug: "bustamante",
+  //   nombre: "Edificio Bustamante",
+  //   ubicacion: "Calle Indo, Coop. Manuel Prado N°58, Mz E Lt 28",
+  //   distrito: "José Luis Bustamante y Rivero",
+  //   descripcion:
+  //     "Edificio multifamiliar de 5 niveles + azotea con departamentos funcionales de 2 dormitorios, jardines interiores y ascensor directo.",
+  //   niveles: 5,
+  //   departamentos: 9,
+  //   estacionamientos: 5,
+  //   dormitorios: "2 dormitorios",
+  //   areaTerreno: "250.75 m²",
+  //   estado: "En lanzamiento",
+  //   imagen: "/projects/bustamante/hero.png",
+  //   highlights: [
+  //     "Jardín interior",
+  //     "Walking closet",
+  //     "SUM",
+  //     "Área de parrilla",
+  //   ],
+  // },
 ];
 
 const containerVariants = {
