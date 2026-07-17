@@ -5,7 +5,6 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { Toaster } from "@/components/ui/sonner";
 import { Navbar } from "@/components/common/navbar";
 import { Footer } from "@/components/common/footer";
-import { LenisProvider } from "@/components/providers/lenis-provider";
 
 const poppins = Poppins({
   variable: "--font-poppins",
@@ -29,14 +28,12 @@ export default function RootLayout({
       <body
         className={`${poppins.variable} ${poppins.className} antialiased flex flex-col min-h-screen`}
       >
-        <LenisProvider>
-          <TooltipProvider>
-            <Navbar />
-            <main className="flex-1 pt-16 md:pt-20">{children}</main>
-            <Footer />
-            <Toaster />
-          </TooltipProvider>
-        </LenisProvider>
+        <TooltipProvider>
+          <Navbar />
+          <main className="flex-1 pt-16 md:pt-20">{children}</main>
+          <Footer />
+          <Toaster />
+        </TooltipProvider>
       </body>
     </html>
   );

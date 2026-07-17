@@ -16,6 +16,15 @@ const frameSrc = (i: number) =>
 /* Cuánto scroll dura el scrub (300% = 3 alturas de viewport de recorrido). */
 const SCRUB_LENGTH = "+=300%";
 
+/* Tope de densidad de pixel: 1.5 basta para un fondo full-bleed y ahorra RAM. */
+const MAX_DPR = 1.5;
+
+/* Debajo de este ancho mostramos un frame estático (rendimiento en móvil). */
+const MOBILE_BREAKPOINT = 768;
+
+/* Frame que se muestra en modo estático (la "llegada" a las oficinas). */
+const STATIC_FRAME_INDEX = TOTAL_FRAMES - 1;
+
 /* ------------------------------------------------------------------ */
 /* Copys del overlay — edítalos aquí sin tocar la lógica              */
 /* ------------------------------------------------------------------ */
@@ -42,22 +51,23 @@ export function DroneReveal() {
     const context = canvas.getContext("2d");
     if (!context) return;
 
-    /* --- Precarga de los frames --- */
-    const images: HTMLImageElement[] = [];
-    const state = { frame: 0 };
-    let currentFrame = 0;
+    /* --- Decidir modo: animado vs. estático ---
+       En desktop siempre anima (muestra los frames al hacer scroll). En móvil
+       usa un frame estático por rendimiento (evita cargar los ~24MB de frames).
+       `?motion=full` / `?motion=reduce` fuerza el modo para previsualizar. */
+    const motionParam = new URLSearchParams(window.location.search).get("motion");
+    const staticMode =
+      motionParam === "full"
+        ? false
+        : motionParam === "reduce"
+          ? true
+          : window.matchMedia(`(max-width: ${MOBILE_BREAKPOINT - 1}px)`).matches;
 
-    for (let i = 1; i <= TOTAL_FRAMES; i++) {
-      const img = new Image();
-      img.src = frameSrc(i);
-      images[i - 1] = img;
-    }
-
-    /* --- Dibujo con ajuste "cover" (centrado, sin deformar) --- */
-    const drawFrame = (index: number) => {
-      const img = images[index];
-      if (!img || !img.complete || img.naturalWidth === 0) return;
-
+    /* --- Pintado con ajuste "cover" (centrado, sin deformar) --- */
+    let currentImg: HTMLImageElement | null = null;
+    const paint = (img: HTMLImageElement) => {
+      if (!img.complete || img.naturalWidth === 0) return;
+      currentImg = img;
       const cw = canvas.width;
       const ch = canvas.height;
       const iw = img.naturalWidth;
@@ -65,68 +75,80 @@ export function DroneReveal() {
       const scale = Math.max(cw / iw, ch / ih);
       const dw = iw * scale;
       const dh = ih * scale;
-      const dx = (cw - dw) / 2;
-      const dy = (ch - dh) / 2;
-
       context.clearRect(0, 0, cw, ch);
-      context.drawImage(img, dx, dy, dw, dh);
+      context.drawImage(img, (cw - dw) / 2, (ch - dh) / 2, dw, dh);
     };
 
-    const render = () => {
-      const next = Math.round(state.frame);
-      currentFrame = next;
-      drawFrame(next);
-    };
-
-    /* --- Tamaño del canvas según el contenedor + densidad de pantalla --- */
-    const resizeCanvas = () => {
+    /* --- Tamaño del canvas según contenedor + densidad de pantalla --- */
+    const sizeCanvas = () => {
       const rect = canvas.getBoundingClientRect();
-      const dpr = Math.min(window.devicePixelRatio || 1, 2);
+      const dpr = Math.min(window.devicePixelRatio || 1, MAX_DPR);
       canvas.width = Math.round(rect.width * dpr);
       canvas.height = Math.round(rect.height * dpr);
-      drawFrame(currentFrame);
+      if (currentImg) paint(currentImg); // repintar el frame vigente
     };
-    resizeCanvas();
-    window.addEventListener("resize", resizeCanvas);
+    sizeCanvas();
+    window.addEventListener("resize", sizeCanvas);
 
-    /* Dibuja el primer frame en cuanto cargue (evita canvas en blanco) */
-    if (images[0]) {
-      if (images[0].complete && images[0].naturalWidth > 0) {
-        drawFrame(0);
-      } else {
-        images[0].addEventListener("load", () => drawFrame(0), { once: true });
-      }
+    /* =============================================================== */
+    /* MODO ESTÁTICO: una sola imagen, sin pin ni scrub (rápido)       */
+    /* =============================================================== */
+    if (staticMode) {
+      const img = new Image();
+      img.decoding = "async";
+      img.src = frameSrc(STATIC_FRAME_INDEX + 1);
+      const show = () => paint(img);
+      if (img.complete && img.naturalWidth) show();
+      else img.addEventListener("load", show, { once: true });
+
+      gsap.set(textARef.current, { opacity: 0 });
+      gsap.set(textBRef.current, { opacity: 1, y: 0 });
+
+      return () => window.removeEventListener("resize", sizeCanvas);
     }
 
-    /* Recalcular posiciones cuando termine de cargar el último frame */
+    /* =============================================================== */
+    /* MODO ANIMADO: precarga los 60 frames + pin + scrub              */
+    /* =============================================================== */
+    const images: HTMLImageElement[] = [];
+    for (let i = 1; i <= TOTAL_FRAMES; i++) {
+      const img = new Image();
+      img.decoding = "async";
+      img.src = frameSrc(i);
+      images[i - 1] = img;
+    }
+
+    let currentIndex = -1;
+    const drawIndex = (index: number) => {
+      if (index === currentIndex) return; // guard: evita redibujar el mismo frame
+      const img = images[index];
+      if (!img || !img.complete || img.naturalWidth === 0) return;
+      currentIndex = index;
+      paint(img);
+    };
+
+    /* Decodifica y muestra el primer frame cuanto antes (evita canvas negro) */
+    const first = images[0];
+    const showFirst = () => drawIndex(0);
+    if (first.complete && first.naturalWidth) {
+      showFirst();
+    } else if (typeof first.decode === "function") {
+      first.decode().then(showFirst).catch(() => {
+        first.addEventListener("load", showFirst, { once: true });
+      });
+    } else {
+      first.addEventListener("load", showFirst, { once: true });
+    }
+
+    /* Recalcular posiciones cuando cargue el último frame (cambia el layout) */
     const last = images[TOTAL_FRAMES - 1];
     const onLastLoad = () => ScrollTrigger.refresh();
     if (last && !last.complete) {
       last.addEventListener("load", onLastLoad, { once: true });
     }
 
-    /* --- Respeta "reduce motion": frame estático, sin pin ni scrub --- */
-    // `?motion=full` / `?motion=reduce` fuerza el modo (útil para previsualizar
-    // en una máquina con "reduce motion" activado); por defecto respeta el SO.
-    const motionParam = new URLSearchParams(window.location.search).get("motion");
-    const prefersReduced =
-      motionParam === "reduce" ||
-      (motionParam !== "full" &&
-        window.matchMedia("(prefers-reduced-motion: reduce)").matches);
-
+    const state = { frame: 0 };
     const ctx = gsap.context(() => {
-      if (prefersReduced) {
-        // Muestra un frame intermedio (oficinas ya a la vista) sin animar.
-        const staticFrame = TOTAL_FRAMES - 1;
-        const showStatic = () => drawFrame(staticFrame);
-        currentFrame = staticFrame;
-        if (images[staticFrame]?.complete) showStatic();
-        else images[staticFrame]?.addEventListener("load", showStatic, { once: true });
-        gsap.set(textBRef.current, { opacity: 1, y: 0 });
-        gsap.set(textARef.current, { opacity: 0 });
-        return;
-      }
-
       gsap.set(textARef.current, { opacity: 0, y: 24 });
       gsap.set(textBRef.current, { opacity: 0, y: 24 });
 
@@ -148,7 +170,7 @@ export function DroneReveal() {
           frame: TOTAL_FRAMES - 1,
           ease: "none",
           snap: { frame: 1 },
-          onUpdate: render,
+          onUpdate: () => drawIndex(Math.round(state.frame)),
           duration: 1,
         },
         0,
@@ -163,7 +185,7 @@ export function DroneReveal() {
     }, sectionRef);
 
     return () => {
-      window.removeEventListener("resize", resizeCanvas);
+      window.removeEventListener("resize", sizeCanvas);
       last?.removeEventListener("load", onLastLoad);
       ctx.revert();
     };
