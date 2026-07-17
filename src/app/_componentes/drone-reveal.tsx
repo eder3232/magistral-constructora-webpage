@@ -13,8 +13,13 @@ const TOTAL_FRAMES = 60;
 const frameSrc = (i: number) =>
   `/hero_drone/frame_${String(i).padStart(4, "0")}.jpg`; // frame_0001.jpg …
 
-/* Cuánto scroll dura el scrub (300% = 3 alturas de viewport de recorrido). */
-const SCRUB_LENGTH = "+=300%";
+/* Cuánto scroll dura la sección pineada (360% = 3.6 alturas de viewport).
+   Los frames terminan al ~78%; el resto es el "coletazo" donde el frame queda
+   congelado y el texto se parte hacia los lados antes de soltar el pin. */
+const SCRUB_LENGTH = "+=360%";
+
+/* Punto (0–1) de la timeline en que los frames terminan de barrerse. */
+const FRAMES_END = 0.78;
 
 /* Tope de densidad de pixel: 1.5 basta para un fondo full-bleed y ahorra RAM. */
 const MAX_DPR = 1.5;
@@ -37,11 +42,27 @@ const TEXT_B = {
   title: "Aquí empieza tu proyecto",
 };
 
+/* Contenido del texto B, reutilizado por las dos mitades del efecto cortina. */
+function TextBInner() {
+  return (
+    <>
+      <p className="text-sm font-semibold uppercase tracking-[0.3em] text-secondary">
+        {TEXT_B.eyebrow}
+      </p>
+      <h2 className="mt-4 text-balance text-4xl font-bold leading-tight text-white drop-shadow-lg sm:text-5xl lg:text-6xl">
+        {TEXT_B.title}
+      </h2>
+    </>
+  );
+}
+
 export function DroneReveal() {
   const sectionRef = useRef<HTMLElement>(null);
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const textARef = useRef<HTMLDivElement>(null);
-  const textBRef = useRef<HTMLDivElement>(null);
+  const textBRef = useRef<HTMLDivElement>(null); // contenedor (entrada/salida en bloque)
+  const textBLeftRef = useRef<HTMLDivElement>(null); // mitad izquierda (sale a la izquierda)
+  const textBRightRef = useRef<HTMLDivElement>(null); // mitad derecha (sale a la derecha)
 
   useEffect(() => {
     const canvas = canvasRef.current;
@@ -151,6 +172,10 @@ export function DroneReveal() {
     const ctx = gsap.context(() => {
       gsap.set(textARef.current, { opacity: 0, y: 24 });
       gsap.set(textBRef.current, { opacity: 0, y: 24 });
+      gsap.set([textBLeftRef.current, textBRightRef.current], {
+        xPercent: 0,
+        opacity: 1,
+      });
 
       const tl = gsap.timeline({
         scrollTrigger: {
@@ -163,7 +188,8 @@ export function DroneReveal() {
         },
       });
 
-      /* Frames: barre 0 → último a lo largo de todo el scroll */
+      /* Frames: barre 0 → último durante el primer ~78% del recorrido.
+         Después el canvas conserva el último frame (dron ya en las oficinas). */
       tl.to(
         state,
         {
@@ -171,17 +197,29 @@ export function DroneReveal() {
           ease: "none",
           snap: { frame: 1 },
           onUpdate: () => drawIndex(Math.round(state.frame)),
-          duration: 1,
+          duration: FRAMES_END,
         },
         0,
       );
 
-      /* Texto A: entra al inicio (sobre el horizonte) y sale a la mitad */
-      tl.to(textARef.current, { opacity: 1, y: 0, ease: "power2.out", duration: 0.12 }, 0.04)
-        .to(textARef.current, { opacity: 0, y: -24, ease: "power2.in", duration: 0.12 }, 0.4);
+      /* Texto A: entra al inicio (sobre el horizonte) y sale hacia la mitad */
+      tl.to(textARef.current, { opacity: 1, y: 0, ease: "power2.out", duration: 0.1 }, 0.04)
+        .to(textARef.current, { opacity: 0, y: -24, ease: "power2.in", duration: 0.1 }, 0.34);
 
-      /* Texto B: entra al aterrizar en las oficinas */
-      tl.to(textBRef.current, { opacity: 1, y: 0, ease: "power2.out", duration: 0.14 }, 0.6);
+      /* Texto B: entra al aterrizar en las oficinas y queda legible un momento */
+      tl.to(textBRef.current, { opacity: 1, y: 0, ease: "power2.out", duration: 0.14 }, 0.58);
+
+      /* Coletazo: al seguir scrolleando, el texto se parte hacia los lados
+         mientras el frame sigue congelado (aún se ve la sección del dron). */
+      tl.to(
+        textBLeftRef.current,
+        { xPercent: -90, opacity: 0, ease: "power2.in", duration: 0.18 },
+        0.82,
+      ).to(
+        textBRightRef.current,
+        { xPercent: 90, opacity: 0, ease: "power2.in", duration: 0.18 },
+        0.82,
+      );
     }, sectionRef);
 
     return () => {
@@ -216,13 +254,23 @@ export function DroneReveal() {
           </h2>
         </div>
 
+        {/* Texto B: dos copias recortadas (izq/der) para el efecto "cortina".
+            Juntas forman el texto completo; al hacer scroll se separan. */}
         <div ref={textBRef} className="absolute max-w-3xl">
-          <p className="text-sm font-semibold uppercase tracking-[0.3em] text-secondary">
-            {TEXT_B.eyebrow}
-          </p>
-          <h2 className="mt-4 text-balance text-4xl font-bold leading-tight text-white drop-shadow-lg sm:text-5xl lg:text-6xl">
-            {TEXT_B.title}
-          </h2>
+          <div
+            ref={textBLeftRef}
+            style={{ clipPath: "inset(-30% 50% -30% -30%)" }}
+          >
+            <TextBInner />
+          </div>
+          <div
+            ref={textBRightRef}
+            aria-hidden
+            className="absolute inset-0"
+            style={{ clipPath: "inset(-30% -30% -30% 50%)" }}
+          >
+            <TextBInner />
+          </div>
         </div>
       </div>
     </section>
