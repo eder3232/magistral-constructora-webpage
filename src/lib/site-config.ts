@@ -4,14 +4,14 @@
  */
 export const SITE_CONTACT = {
   /** Número de teléfono tal como se muestra al usuario */
-  telefonoDisplay: "+51 913 367 969",
+  telefonoDisplay: "+51 932 416 033",
   /** Valor para enlaces tel: (sin espacios) */
-  telefonoHref: "tel:+51913367960",
+  telefonoHref: "tel:+51932416033",
   /** Email de contacto general (footer, contacto) */
-  emailToShowInThePage: "coordinador1@magistralconstructora.com",
-  emailSendLeads: "coordinador1@magistralconstructora.com",
+  emailToShowInThePage: "ventas1@magistralconstructora.com",
+  emailSendLeads: "mktmagistralaqp@gmail.com",
   /** Email receptor oficial del Libro de Reclamaciones (Soporte) */
-  emailSoporte: "eder.learning.tiktok@outlook.com",
+  emailSoporte: "mktmagistralaqp@gmail.com",
   direccion: "Calle Los Arces N°220, Cayma, Arequipa",
 } as const;
 
