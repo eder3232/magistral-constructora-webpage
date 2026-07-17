@@ -1,6 +1,7 @@
 import { Hero } from "@/app/_componentes/hero";
 import { Nosotros } from "@/app/_componentes/nosotros";
 import { ProjectsSection } from "@/app/_componentes/projects-section";
+import { DroneReveal } from "@/app/_componentes/drone-reveal";
 import { ParallaxImageMarquee } from "@/app/_componentes/parallax-image-marquee";
 import { CtaSection } from "@/app/_componentes/cta-section";
 import { SectionWaveDivider } from "@/app/_componentes/section-wave-divider";
@@ -12,6 +13,7 @@ export default function Home() {
       <Hero />
       <ParallaxImageMarquee />
       <ProjectsSection />
+      <DroneReveal />
       <Nosotros />
       <CtaSection />
       <SectionWaveDivider />

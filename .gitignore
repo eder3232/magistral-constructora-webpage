@@ -39,3 +39,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# AI skills: symlinks regenerables de Claude Code (las skills canónicas viven en .agents/)
+.claude/skills/
